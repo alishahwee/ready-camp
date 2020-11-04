@@ -3,3 +3,6 @@ __pycache__
 .vscode
 .env
 .flaskenv
+parks.json
+state-parks.sql
+camping-gear.csv
