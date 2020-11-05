@@ -1,9 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+from os import getenv
 from helpers import *
 
+# Load env vars
+load_dotenv()
+
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///state_parks"
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DB_URI")
 app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
