@@ -6,3 +6,4 @@ __pycache__
 parks.json
 state-parks.sql
 camping-gear.csv
+parks.tsv
