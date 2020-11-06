@@ -21,7 +21,7 @@ def get_park_info(park_id):
 def get_park_list():
     """Get a list of all the park names and IDs."""
 
-    parks = Park.query.all()
+    parks = Park.query.order_by(Park.name).all()
 
     return parks
 
