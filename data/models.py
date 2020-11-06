@@ -44,6 +44,10 @@ class Park(db.Model):
     # favorite = a list of Favorite objects
     # user_item = a list of UserItem objects
 
+    latlon_as_list = [float(c) for c in coordinates.split(",")]
+    lat = latlon_as_list[0]
+    lon = latlon_as_list[1]
+
     def __repr__(self) -> str:
         return "<Park '%s'>" % self.name
 
