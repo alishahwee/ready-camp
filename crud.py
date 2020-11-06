@@ -22,7 +22,7 @@ def get_park_list():
 
     parks = Park.query.all()
 
-    return [{"id": park.id, "name": park.name} for park in parks]
+    return parks
 
 
 def get_park_id(park_name):
@@ -57,7 +57,9 @@ def get_weather(park_id):
 def get_favorites(user_id):
     """Get favorite parks from user ID."""
 
-    # TODO
+    favorites = Favorite.query.filter_by(user_id=user_id)
+
+    return favorites
 
 
 def register_user(username, password, email):
