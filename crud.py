@@ -1,6 +1,11 @@
 """A file for CRUD operations."""
 
 from data.models import *
+from dotenv import load_dotenv
+from os import getenv
+
+# Import env vars
+load_dotenv()
 
 
 def get_park_info(park_id):
