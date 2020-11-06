@@ -3,6 +3,7 @@
 from data.models import *
 from dotenv import load_dotenv
 from os import getenv
+import requests
 
 # Import env vars
 load_dotenv()
@@ -33,9 +34,24 @@ def get_park_id(park_name):
 
 
 def get_weather(park_id):
-    """Get weather from park ID."""
+    """Get weather dict from park ID."""
 
-    # TODO
+    park = get_park_info(park_id)
+
+    url = "https://api.climacell.co/v3/weather/forecast/daily"
+
+    querystring = {
+        "lat": park.lat,
+        "lon": park.lon,
+        "unit_system": "us",
+        "start_time": "now",
+        "fields": "temp,precipitation,wind_speed",
+        "apikey": getenv("CLIMACELL_KEY"),
+    }
+
+    response = requests.request("GET", url, params=querystring)
+
+    return response.text
 
 
 def get_favorites(user_id):
