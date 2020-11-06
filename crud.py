@@ -1,6 +1,7 @@
 """A file for CRUD operations."""
 
 from data.models import *
+from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 from os import getenv
 import requests
@@ -65,13 +66,28 @@ def get_favorites(user_id):
 def register_user(username, password, email):
     """Register a new user."""
 
-    # TODO
+    new_user = User(
+        username=username, password=generate_password_hash(password), email=email
+    )
+    db.session.add(new_user)
+
+    try:
+        db.session.commit()
+    except:
+        return {"error": "A user already has that username/email"}, 500
+
+    return {"message": "User registered successfully"}, 201
 
 
 def login_user(username, password):
     """Login a user."""
 
-    # TODO
+    user = User.query.filter_by(username=username).first()
+
+    if user and check_password_hash(user.password, password):
+        return user.id # Add to session in app.py
+    else:
+        return {"error": "username or password are incorrect"}, 401
 
 
 def get_items(is_rainy=False, is_winter=False, is_optional=False):
