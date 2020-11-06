@@ -90,8 +90,8 @@ def login_user(username, password):
         return {"error": "username or password are incorrect"}, 401
 
 
-def get_items(is_rainy=False, is_winter=False, is_optional=False):
-    """Get all camping items."""
+def get_items(is_rainy=None, is_winter=None):
+    """Get all relevant camping items."""
 
     # TODO
 
