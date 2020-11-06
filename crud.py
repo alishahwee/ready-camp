@@ -1,50 +1,40 @@
 """A file for CRUD operations."""
 
-
-def get_park_coords(park_id):
-    """Get coordinates from park id."""
-
-    # TODO
-
-
-def get_park_activities(park_id):
-    """Get activities from park id."""
-
-    # TODO
-
-
-def get_park_images(park_id):
-    """Get image URLs from park id."""
-
-    # TODO
+from data.models import *
 
 
 def get_park_info(park_id):
-    """Get park info from park id."""
+    """Get all park info from park ID."""
 
-    # TODO
+    park = Park.query.get(park_id)
+
+    return park
 
 
 def get_park_list():
-    """Get a list of all the parks."""
+    """Get a list of all the park names and IDs."""
 
-    # TODO
+    parks = Park.query.all()
+
+    return [{"id": park.id, "name": park.name} for park in parks]
 
 
 def get_park_id(park_name):
     """Get park id from name."""
 
-    # TODO
+    park = Park.query.filter(Park.name.ilike(f"%{park_name}%")).first()
+
+    return park.id
 
 
 def get_weather(park_id):
-    """Get weather from park id."""
+    """Get weather from park ID."""
 
     # TODO
 
 
 def get_favorites(user_id):
-    """Get favorite parks from user id."""
+    """Get favorite parks from user ID."""
 
     # TODO
 
@@ -68,6 +58,6 @@ def get_items(is_rainy=False, is_winter=False, is_optional=False):
 
 
 def get_user_items(user_id, park_id):
-    """Get items from user and park id."""
+    """Get items from user and park ID."""
 
     # TODO
