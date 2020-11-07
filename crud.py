@@ -102,6 +102,8 @@ def get_items(is_rainy=False, is_winter=False):
 
 
 def get_user_items(user_id, park_id):
-    """Get items from user and park ID."""
+    """Get item ID and checkmark status from user and park ID."""
 
-    # TODO
+    items = UserItem.query.filter(user_id == user_id, park_id == park_id).all()
+
+    return [{"item_id": item.item_id, "is_checked": item.is_checked} for item in items]
