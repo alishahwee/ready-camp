@@ -85,7 +85,7 @@ def login_user(username, password):
     user = User.query.filter_by(username=username).first()
 
     if user and check_password_hash(user.password, password):
-        return user.id # Add to session in app.py
+        return user.id  # Add to session in app.py
     else:
         return {"error": "username or password are incorrect"}, 401
 
@@ -93,7 +93,12 @@ def login_user(username, password):
 def get_items(is_rainy=False, is_winter=False):
     """Get all relevant camping items."""
 
-    
+    items = Item.query.filter(
+        ((Item.is_rainy == None) | (Item.is_rainy == is_rainy)),
+        ((Item.is_winter == None) | (Item.is_winter == is_winter)),
+    ).all()  # Find items that are NULL or equal to the args
+
+    return items
 
 
 def get_user_items(user_id, park_id):
