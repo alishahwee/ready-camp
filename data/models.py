@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.hybrid import hybrid_property
 from dotenv import load_dotenv
 from os import getenv
 from helpers import *
@@ -44,9 +45,17 @@ class Park(db.Model):
     # favorite = a list of Favorite objects
     # user_item = a list of UserItem objects
 
-    latlon_as_list = [float(c) for c in coordinates.split(",")]
-    lat = latlon_as_list[0]
-    lon = latlon_as_list[1]
+    @hybrid_property
+    def latlon_as_list(self):
+        return [float(c) for c in self.coordinates.split(",")]
+
+    @hybrid_property
+    def lat(self):
+        return self.latlon_as_list[0]
+
+    @hybrid_property
+    def lon(self):
+        return self.latlon_as_list[1]
 
     def __repr__(self) -> str:
         return "<Park '%s'>" % self.name
