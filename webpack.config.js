@@ -38,15 +38,15 @@ module.exports = {
       {
         test: /\.css$/i,
         use: [
-          'style-loader',
-          'css-loader',
+          "style-loader",
+          "css-loader",
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: {
               postcssOptions: {
                 plugins: [
                   [
-                    'postcss-preset-env',
+                    "postcss-preset-env",
                     {
                       // Options
                     },
@@ -56,6 +56,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
       },
     ],
   },
