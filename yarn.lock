@@ -2070,6 +2070,16 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
+fontsource-pattaya@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/fontsource-pattaya/-/fontsource-pattaya-3.0.9.tgz#7999c14d0c60dbd4eb00a6b889f01038d5e04127"
+  integrity sha512-qzvtfTuub/1dICbvxsY7ZLnBx41nTjxDSKZOWiabSKo4oFOV+BB7WdPZgqfZarjkmt6XlX4iho++EgQv2irAJQ==
+
+fontsource-poppins@^3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/fontsource-poppins/-/fontsource-poppins-3.0.10.tgz#42b194661b4c43eb234f683ca1616286ddb2a18c"
+  integrity sha512-3+1xBgh/HPPwvP0M7I6BEoZOqiT+kH7IUSFlKCm9r1j/Mdm/AqyeU+PMOZYt+Kpqm0OLgpDH56mqEksaycpinQ==
+
 fs-extra@^8.0.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-8.1.0.tgz#49d43c45a88cd9677668cb7be1b46efdb8d2e1c0"
