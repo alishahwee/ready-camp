@@ -1,7 +1,10 @@
 import json
 from csv import DictReader, reader
-from models import db, Item, Park, Image, Activity
+from .models import db, Park, Image, Activity, Item
+from app import app
 
+db.app = app
+db.init_app = app
 
 def insert_parks(json_file):
     """Decode json and insert into database."""

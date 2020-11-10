@@ -1,18 +1,13 @@
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
-from dotenv import load_dotenv
 from os import getenv
-from helpers import *
+from dotenv import load_dotenv
+from .helpers import *
 
 # Load env vars
 load_dotenv()
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DB_URI")
-app.config["SQLALCHEMY_ECHO"] = True
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 
 class Item(db.Model):
@@ -137,8 +132,23 @@ class UserItem(db.Model):
         )
 
 
+def connect_to_db(flask_app, db_uri=getenv("DB_URI"), echo=True):
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    flask_app.config['SQLALCHEMY_ECHO'] = echo
+    flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    db.app = flask_app
+    db.init_app(flask_app)
+
+    print('Connected to the db!')
+
+
 if __name__ == "__main__":
+    from app import app
+
+    connect_to_db(app)
     db.create_all()
-    insert_parks("parks.json")
-    insert_items("camping-gear.csv")
-    verify_parks("parks.tsv")
+
+    insert_parks("data/parks.json")
+    insert_items("data/camping-gear.csv")
+    verify_parks("data/parks.tsv")
