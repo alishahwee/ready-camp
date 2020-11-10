@@ -13,3 +13,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DB_URI")
 app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+
+
+app.route("/")
+def homepage():
+    """Load the homepage."""
+
+    return render_template("index.html")
