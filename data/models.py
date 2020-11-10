@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 from os import getenv
 from dotenv import load_dotenv
-from .helpers import *
+from . import helpers
 
 # Load env vars
 load_dotenv()
@@ -133,14 +133,14 @@ class UserItem(db.Model):
 
 
 def connect_to_db(flask_app, db_uri=getenv("DB_URI"), echo=True):
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-    flask_app.config['SQLALCHEMY_ECHO'] = echo
-    flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = echo
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = flask_app
     db.init_app(flask_app)
 
-    print('Connected to the db!')
+    print("Connected to the db!")
 
 
 if __name__ == "__main__":
@@ -149,6 +149,7 @@ if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
 
-    insert_parks("data/parks.json")
-    insert_items("data/camping-gear.csv")
-    verify_parks("data/parks.tsv")
+    with app.app_context():
+        helpers.insert_parks("data/parks.json")
+        helpers.insert_items("data/camping-gear.csv")
+        helpers.verify_parks("data/parks.tsv")

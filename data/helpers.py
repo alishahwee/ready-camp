@@ -1,10 +1,7 @@
 import json
 from csv import DictReader, reader
-from .models import db, Park, Image, Activity, Item
-from app import app
+from . import models
 
-db.app = app
-db.init_app = app
 
 def insert_parks(json_file):
     """Decode json and insert into database."""
@@ -13,23 +10,23 @@ def insert_parks(json_file):
         parks = json.load(f)
 
         for park in parks:
-            park_obj = Park(
+            park_obj = models.Park(
                 name=park["name"],
                 address=park["address"],
                 coordinates=park["lat_long"],
                 url=park["url"],
             )
-            db.session.add(park_obj)
+            models.db.session.add(park_obj)
 
             for url in park["images"]:
-                park_img = Image(park=park_obj, url=url)
-                db.session.add(park_img)
+                park_img = models.Image(park=park_obj, url=url)
+                models.db.session.add(park_img)
 
             for activity in park["activities"]:
-                park_activity = Activity(park=park_obj, activity=activity)
-                db.session.add(park_activity)
+                park_activity = models.Activity(park=park_obj, activity=activity)
+                models.db.session.add(park_activity)
 
-        db.session.commit()
+        models.db.session.commit()
 
 
 def insert_items(csv_file):
@@ -38,7 +35,7 @@ def insert_items(csv_file):
     with open(csv_file, newline="") as f:
         reader = DictReader(f)
         for row in reader:
-            item = Item(
+            item = models.Item(
                 name=row["name"],
                 is_rainy=eval(row["is_rainy"]),
                 is_winter=eval(row["is_winter"]),
@@ -46,9 +43,9 @@ def insert_items(csv_file):
                 category=row["category"],
             )
 
-            db.session.add(item)
+            models.db.session.add(item)
 
-        db.session.commit()
+        models.db.session.commit()
 
 
 def verify_parks(tsv_file):
@@ -57,9 +54,9 @@ def verify_parks(tsv_file):
     with open(tsv_file, newline="") as f:
         rd = reader(f, delimiter="\t")
         for row in rd:
-            park = Park.query.get(int(row[0]))
+            park = models.Park.query.get(int(row[0]))
             if park.address != row[2]:
                 park.address = row[2]
-                db.session.commit()
+                models.db.session.commit()
             else:
                 continue
