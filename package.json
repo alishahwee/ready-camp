@@ -1,0 +1,49 @@
+{
+	"name": "ready-camp",
+	"version": "1.0.0",
+	"description": "All-in-one camping planner",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "webpack --mode production",
+		"start": "webpack --mode development --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/alishahwee/ready-camp.git"
+	},
+	"keywords": [],
+	"author": "Alisha Hwee",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/alishahwee/ready-camp/issues"
+	},
+	"homepage": "https://github.com/alishahwee/ready-camp#readme",
+	"devDependencies": {
+		"@babel/core": "^7.12.3",
+		"@babel/preset-env": "^7.12.1",
+		"@babel/preset-react": "^7.12.5",
+		"@emotion/babel-plugin-jsx-pragmatic": "^0.1.5",
+		"babel-loader": "^6.4.1",
+		"babel-plugin-macros": "^2.8.0",
+		"webpack": "^1.15.0",
+		"webpack-cli": "^4.2.0"
+	},
+	"dependencies": {
+		"@emotion/core": "^10.1.1",
+		"@emotion/styled": "^10.0.27",
+		"react": "^0.14.10",
+		"react-dom": "^0.14.10",
+		"react-router-dom": "^5.2.0",
+		"twin.macro": "^1.12.0"
+	},
+	"babelMacros": {
+		"twin": {
+		  "config": "tailwind.config.js",
+		  "preset": "emotion",
+		  "debugProp": true,
+		  "debugPlugins": false,
+		  "debug": false
+		}
+	}
+}
