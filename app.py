@@ -24,3 +24,22 @@ def parks():
     parks = get_park_list()
 
     return jsonify([{"id": park.id, "name": park.name} for park in parks])
+
+
+@app.route("/api/park/<id>")
+def park(id):
+    """Return a park page from ID."""
+
+    park = get_park_info(id)
+
+    return jsonify(
+        {
+            "id": park.id,
+            "name": park.name,
+            "address": park.address,
+            "coordinates": {"lat": park.lat, "lon": park.lon},
+            "url": park.url,
+            "images": [image.url for image in park.image],
+            "activities": [activity.activity for activity in park.activity],
+        }
+    )
