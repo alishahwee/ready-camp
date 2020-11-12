@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import tw from "twin.macro";
 
 const Form = tw.form`w-full`;
 const Input = tw.input`container mx-auto`;
 
 const SearchBar = () => {
-  const [park, setPark] = useState({ id: "", name: "" });
+  const history = useHistory();
+
+  const [park, setPark] = useState({ id: undefined, name: ""});
   const [parks, setParks] = useState([]);
 
   useEffect(() => {
@@ -19,25 +21,12 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (park.id) {
-      return <Redirect to={`/park/${park.id}`} />;
-    } else {
-      fetch(`/api/search?name=${park.name}`)
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-      return (
-        <Redirect
-          to={{
-            pathname: "/search",
-            search: `?name=${park.name}`,
-            state: { referrer: currentLocation },
-          }}
-        />
-      );
+      history.push(`/park/${park.id}`);
     }
   };
 
   const handleChange = (e) => {
-    let parkId = "";
+    let parkId = undefined;
     for (const park of parks) {
       if (e.target.value === park.name) {
         parkId = park.id;
@@ -66,4 +55,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);
