@@ -15,6 +15,7 @@ module.exports = {
       },
       colors: {
         "gold-crayola": "#eec584",
+        "steal-teal": "#515a47",
       },
     },
   },
