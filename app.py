@@ -10,8 +10,9 @@ app = Flask(__name__)
 connect_to_db(app)
 
 
-@app.route("/")
-def homepage():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def homepage(path):
     """Load the homepage."""
 
     return render_template("index.html")
