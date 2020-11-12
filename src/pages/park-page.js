@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Helmet from "react-helmet";
 import tw from "twin.macro";
 import Image from "../components/image";
+import ParkInfo from "../components/park-info";
 
 const Wrapper = tw.div`flex flex-col items-center h-screen p-4`;
 
@@ -35,7 +36,7 @@ const ParkPage = () => {
         <title>{name}</title>
       </Helmet>
       <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
-      <p>Showing page for park: {name}</p>
+      <ParkInfo name={name} address={address} activities={activities} url={url} />
     </Wrapper>
   );
 };
