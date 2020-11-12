@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import tw from "twin.macro";
 
+const Form = tw.form`w-full`;
+const Input = tw.input`container mx-auto`;
+
 const SearchBar = () => {
   const [park, setPark] = useState({ id: "", name: "" });
   const [parks, setParks] = useState([]);
@@ -48,8 +51,8 @@ const SearchBar = () => {
   ));
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <Form onSubmit={handleSubmit}>
+      <Input
         list="parks"
         type="search"
         placeholder="Search"
@@ -59,7 +62,7 @@ const SearchBar = () => {
         onChange={handleChange}
       />
       <datalist id="parks">{dataOptions}</datalist>
-    </form>
+    </Form>
   );
 };
 
