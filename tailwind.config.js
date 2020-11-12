@@ -8,11 +8,15 @@ module.exports = {
       lg: "1024px",
       xl: "1280px",
     },
-    fontFamily: {
-      display: ['Pattaya', 'sans-serif'],
-      body: ['Poppins', 'sans-serif'],
+    extend: {
+      fontFamily: {
+        display: ["Pattaya", "sans-serif"],
+        body: ["Poppins", "sans-serif"],
+      },
+      colors: {
+        "gold-crayola": "#eec584",
+      },
     },
-    extend: {},
   },
   variants: {},
   plugins: [],
