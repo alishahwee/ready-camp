@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 import tw from "twin.macro";
 import Image from "../components/image";
 import ParkInfo from "../components/park-info";
+import Map from "../components/map";
 
 const Wrapper = tw.div`flex flex-col items-center h-screen p-4`;
 
@@ -37,6 +38,7 @@ const ParkPage = () => {
       </Helmet>
       <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
       <ParkInfo name={name} address={address} activities={activities} url={url} />
+      <Map initLng={coords.lon} initLat={coords.lan} initZoom={13} />
     </Wrapper>
   );
 };
