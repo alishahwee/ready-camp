@@ -3,7 +3,7 @@ import { withRouter, useHistory } from "react-router-dom";
 import tw from "twin.macro";
 
 const Form = tw.form`w-full max-w-sm`;
-const Input = tw.input`container mx-auto`;
+const Input = tw.input`container mx-auto h-12 rounded-md p-4`;
 
 const SearchBar = () => {
   const history = useHistory();
