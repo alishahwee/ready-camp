@@ -17,6 +17,10 @@ module.exports = {
         "gold-crayola": "#eec584",
         "steal-teal": "#515a47",
       },
+      fontSize: {
+        "7xl": "5rem",
+        "8xl": "6rem",
+      },
     },
   },
   variants: {},
