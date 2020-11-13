@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Helmet from "react-helmet";
 import tw from "twin.macro";
+import Loading from "../components/loading";
 import Image from "../components/image";
 import ParkInfo from "../components/park-info";
 import Map from "../components/map";
 
-const Wrapper = tw.div`flex flex-col items-center h-screen p-4`;
+const Wrapper = tw.div`grid grid-cols-1 items-center h-screen p-4`;
 
 const ParkPage = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const ParkPage = () => {
   const [imgUrls, setImgUrls] = useState([]);
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`/api/park/${id}`)
@@ -33,12 +35,23 @@ const ParkPage = () => {
 
   return (
     <Wrapper>
-      <Helmet>
-        <title>{name}</title>
-      </Helmet>
-      <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
-      <ParkInfo name={name} address={address} activities={activities} url={url} />
-      <Map initLng={coords.lon} initLat={coords.lan} initZoom={13} />
+      {dataLoaded ? (
+        <>
+          <Helmet>
+            <title>{name}</title>
+          </Helmet>
+          <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
+          <ParkInfo
+            name={name}
+            address={address}
+            activities={activities}
+            url={url}
+          />
+          <Map initLng={coords.lon} initLat={coords.lan} initZoom={13} />
+        </>
+      ) : (
+        <Loading />
+      )}
     </Wrapper>
   );
 };
