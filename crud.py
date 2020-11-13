@@ -52,7 +52,7 @@ def get_weather(park_id):
 
     response = requests.request("GET", url, params=querystring)
 
-    return response.text
+    return response.json()
 
 
 def get_favorites(user_id):
