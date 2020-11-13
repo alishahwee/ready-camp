@@ -34,19 +34,18 @@ def get_park_id(park_name):
     return park.id
 
 
-def get_weather(park_id):
+def get_realtime_weather(park_id):
     """Get weather dict from park ID."""
 
     park = get_park_info(park_id)
 
-    url = "https://api.climacell.co/v3/weather/forecast/daily"
+    url = "https://api.climacell.co/v3/weather/realtime"
 
     querystring = {
         "lat": park.lat,
         "lon": park.lon,
         "unit_system": "us",
-        "start_time": "now",
-        "fields": "temp,precipitation,wind_speed",
+        "fields": "temp,wind_speed,weather_code",
         "apikey": getenv("CLIMACELL_KEY"),
     }
 
