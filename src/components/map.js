@@ -18,9 +18,18 @@ const Map = ({ initLng, initLat, initZoom }) => {
       zoom: zoom, // starting zoom
     });
 
-    const marker = new mapboxgl.Marker()
-				.setLngLat([lng, lat])
-				.addTo(map);
+    const marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+
+    const directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      profile: "mapbox/driving",
+    });
+
+    map.addControl(directions, "top-left");
+
+    directions.setDestination([lng, lat]);
+
+    document.querySelector(".mapboxgl-ctrl-directions").style.minWidth = "250px";
 
     map.on("move", () => {
       setLng(map.getCenter().lng.toFixed(4));
@@ -29,7 +38,7 @@ const Map = ({ initLng, initLat, initZoom }) => {
     });
   }, []);
 
-  return <div ref={(el) => (mapContainer.current = el)} tw="h-64" />;
+  return <div ref={(el) => (mapContainer.current = el)} css={{"height": "500px"}} />;
 };
 
 export default Map;
