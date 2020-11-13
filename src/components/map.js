@@ -18,6 +18,10 @@ const Map = ({ initLng, initLat, initZoom }) => {
       zoom: zoom, // starting zoom
     });
 
+    const marker = new mapboxgl.Marker()
+				.setLngLat([lng, lat])
+				.addTo(map);
+
     map.on("move", () => {
       setLng(map.getCenter().lng.toFixed(4));
       setLat(map.getCenter().lat.toFixed(4));
