@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import tw from "twin.macro";
 
-const Form = tw.form`w-full`;
+const Form = tw.form`w-full max-w-sm`;
 const Input = tw.input`container mx-auto`;
 
 const SearchBar = () => {
