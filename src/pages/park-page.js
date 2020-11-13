@@ -7,7 +7,7 @@ import Image from "../components/image";
 import ParkInfo from "../components/park-info";
 import Map from "../components/map";
 
-const Wrapper = tw.div`grid grid-cols-1 items-center h-screen p-4`;
+const Wrapper = tw.div`grid grid-cols-1 items-center p-4`;
 
 const ParkPage = () => {
   const { id } = useParams();
