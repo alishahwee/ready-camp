@@ -5,6 +5,7 @@ import tw from "twin.macro";
 import Loading from "../components/loading";
 import Image from "../components/image";
 import ParkInfo from "../components/park-info";
+import Weather from "../components/weather";
 import Map from "../components/map";
 
 const Wrapper = tw.div`grid grid-cols-1 items-center p-4`;
@@ -46,6 +47,7 @@ const ParkPage = () => {
         activities={activities}
         url={url}
       />
+      <Weather parkId={id} />
       <Map initLng={coords.lon} initLat={coords.lat} initZoom={12} />
     </Wrapper>
   ) : (
