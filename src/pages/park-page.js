@@ -34,25 +34,23 @@ const ParkPage = () => {
       });
   }, []);
 
-  return (
+  return dataLoaded ? (
     <Wrapper>
-      {dataLoaded ? (
-        <>
-          <Helmet>
-            <title>{name}</title>
-          </Helmet>
-          <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
-          <ParkInfo
-            name={name}
-            address={address}
-            activities={activities}
-            url={url}
-          />
-          <Map initLng={coords.lon} initLat={coords.lat} initZoom={13} />
-        </>
-      ) : (
-        <Loading />
-      )}
+      <Helmet>
+        <title>{name}</title>
+      </Helmet>
+      <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
+      <ParkInfo
+        name={name}
+        address={address}
+        activities={activities}
+        url={url}
+      />
+      <Map initLng={coords.lon} initLat={coords.lat} initZoom={13} />
+    </Wrapper>
+  ) : (
+    <Wrapper tw="h-screen">
+      <Loading />
     </Wrapper>
   );
 };
