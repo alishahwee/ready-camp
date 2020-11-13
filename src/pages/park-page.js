@@ -9,6 +9,7 @@ import Weather from "../components/weather";
 import Map from "../components/map";
 
 const Wrapper = tw.div`grid grid-cols-1 items-center p-4`;
+const InfoCard = tw.div`flex flex-col md:flex-row bg-lavender-fade p-2 rounded-lg max-w-screen-lg`;
 
 const ParkPage = () => {
   const { id } = useParams();
@@ -40,13 +41,15 @@ const ParkPage = () => {
       <Helmet>
         <title>{name}</title>
       </Helmet>
-      <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
-      <ParkInfo
-        name={name}
-        address={address}
-        activities={activities}
-        url={url}
-      />
+      <InfoCard>
+        <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
+        <ParkInfo
+          name={name}
+          address={address}
+          activities={activities}
+          url={url}
+        />
+      </InfoCard>
       <Weather parkId={id} />
       <Map initLng={coords.lon} initLat={coords.lat} initZoom={12} />
     </Wrapper>
