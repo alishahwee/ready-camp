@@ -11,7 +11,11 @@ const ParkInfo = ({ name, address, activities, url }) => (
     <P>{address}</P>
     <p>Known for:</p>
     <ul tw="list-disc">
-      {activities.map((activity) => <li tw="ml-4">{activity}</li>)}
+      {activities.map((activity, i) => (
+        <li tw="ml-4" key={`activity-${i}`}>
+          {activity}
+        </li>
+      ))}
     </ul>
     <A href={url} target="_blank">
       Official Website
