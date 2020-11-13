@@ -10,8 +10,8 @@ app = Flask(__name__)
 connect_to_db(app)
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def homepage(path):
     """Load the homepage."""
 
@@ -42,5 +42,24 @@ def park(id):
             "url": park.url,
             "images": [image.url for image in park.image],
             "activities": [activity.activity for activity in park.activity],
+        }
+    )
+
+
+@app.route("/api/weather/<int:id>")
+def weather(id):
+    """Return weather data from park ID."""
+
+    weather = get_realtime_weather(id)
+
+    return jsonify(
+        {
+            "temp": str(int(round(weather["temp"]["value"])))
+            + " º"
+            + weather["temp"]["units"],
+            "description": weather["weather_code"]["value"].capitalize(),
+            "windSpeed": str(int(round(weather["wind_speed"]["value"])))
+            + " "
+            + weather["wind_speed"]["units"],
         }
     )
