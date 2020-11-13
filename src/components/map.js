@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
+import "twin.macro";
 
 const Map = ({ initLng, initLat, initZoom }) => {
   const mapContainer = useRef(null);
@@ -24,7 +25,7 @@ const Map = ({ initLng, initLat, initZoom }) => {
     });
   }, []);
 
-  return <div ref={(el) => (mapContainer.current = el)} />;
+  return <div ref={(el) => (mapContainer.current = el)} tw="h-64" />;
 };
 
 export default Map;
