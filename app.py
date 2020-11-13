@@ -27,7 +27,7 @@ def parks():
     return jsonify([{"id": park.id, "name": park.name} for park in parks])
 
 
-@app.route("/api/park/<id>")
+@app.route("/api/park/<int:id>")
 def park(id):
     """Return a park page from ID."""
 
