@@ -30,6 +30,7 @@ const ParkPage = () => {
         setImgUrls(images);
         setName(name);
         setUrl(url);
+        setDataLoaded(true);
       });
   }, []);
 
@@ -47,7 +48,7 @@ const ParkPage = () => {
             activities={activities}
             url={url}
           />
-          <Map initLng={coords.lon} initLat={coords.lan} initZoom={13} />
+          <Map initLng={coords.lon} initLat={coords.lat} initZoom={13} />
         </>
       ) : (
         <Loading />
