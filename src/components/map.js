@@ -18,19 +18,23 @@ const Map = ({ initLng, initLat, initZoom }) => {
       zoom: zoom, // starting zoom
     });
 
-    const marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+    new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
 
     const directions = new MapboxDirections({
       accessToken: mapboxgl.accessToken,
     });
 
     map.addControl(directions, "top-left");
-
     directions.setDestination([lng, lat]);
 
-    document.querySelector(".mapboxgl-ctrl-directions").style.minWidth = "250px";
+    map.on("load", () => {
+      console.log("Map loaded.");
+      document.querySelector(".mapboxgl-ctrl-directions").style.minWidth = "250px";
+      
+    });
 
-    directions.on("destination", () => {
+    directions.on("route", () => {
+      console.log("Route set.");
       document.querySelector(".directions-control-directions").style.height = "250px";
     });
 
