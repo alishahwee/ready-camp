@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import Loading from "./loading";
 
-const Wrapper = tw.div`grid grid-cols-1`;
+const Wrapper = tw.div`grid grid-cols-1 self-center p-4`;
 const MainView = tw.div`grid grid-flow-col grid-rows-3`;
 
 const Weather = ({ parkId }) => {

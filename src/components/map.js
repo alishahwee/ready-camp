@@ -22,7 +22,6 @@ const Map = ({ initLng, initLat, initZoom }) => {
 
     const directions = new MapboxDirections({
       accessToken: mapboxgl.accessToken,
-      profile: "mapbox/driving",
     });
 
     map.addControl(directions, "top-left");
@@ -31,6 +30,10 @@ const Map = ({ initLng, initLat, initZoom }) => {
 
     document.querySelector(".mapboxgl-ctrl-directions").style.minWidth = "250px";
 
+    directions.on("destination", () => {
+      document.querySelector(".directions-control-directions").style.height = "250px";
+    });
+
     map.on("move", () => {
       setLng(map.getCenter().lng.toFixed(4));
       setLat(map.getCenter().lat.toFixed(4));
@@ -38,7 +41,7 @@ const Map = ({ initLng, initLat, initZoom }) => {
     });
   }, []);
 
-  return <div ref={(el) => (mapContainer.current = el)} css={{"height": "500px"}} />;
+  return <div ref={(el) => (mapContainer.current = el)} tw="sm:m-4" css={{"height": "400px;"}} />;
 };
 
 export default Map;
