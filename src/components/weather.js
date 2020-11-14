@@ -6,7 +6,7 @@ const Wrapper = tw.div`grid grid-cols-1`;
 const MainView = tw.div`grid grid-flow-col grid-rows-3`;
 
 const Weather = ({ parkId }) => {
-  const [realtime, setRealtime] = useState(null);
+  const [realtime, setRealtime] = useState({});
 
   useEffect(() => {
     fetch(`/api/weather/${parkId}`)
@@ -16,17 +16,13 @@ const Weather = ({ parkId }) => {
       });
   }, []);
 
-  return realtime ? (
+  return (
     <Wrapper>
       <Current
         description={realtime.description}
         temp={realtime.temp}
         windSpeed={realtime.windSpeed}
       />
-    </Wrapper>
-  ) : (
-    <Wrapper>
-      <Loading />
     </Wrapper>
   );
 };
