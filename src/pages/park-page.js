@@ -8,8 +8,8 @@ import ParkInfo from "../components/park-info";
 import Weather from "../components/weather";
 import Map from "../components/map";
 
-const Wrapper = tw.div`grid grid-cols-1 items-center p-4`;
-const InfoCard = tw.div`flex flex-col md:flex-row bg-lavender-fade p-2 rounded-lg max-w-screen-lg`;
+const Wrapper = tw.div`grid grid-cols-1 justify-items-center p-4`;
+const InfoCard = tw.div`flex flex-col w-full md:flex-row bg-lavender-fade p-2 rounded-lg max-w-screen-lg`;
 
 const ParkPage = () => {
   const { id } = useParams();
@@ -54,7 +54,7 @@ const ParkPage = () => {
       <Map initLng={coords.lon} initLat={coords.lat} initZoom={12} />
     </Wrapper>
   ) : (
-    <Wrapper tw="h-screen">
+    <Wrapper tw="items-center h-screen">
       <Loading />
     </Wrapper>
   );
