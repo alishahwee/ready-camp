@@ -57,7 +57,7 @@ def weather(id):
             "temp": str(int(round(weather["temp"]["value"])))
             + " º"
             + weather["temp"]["units"],
-            "description": weather["weather_code"]["value"].capitalize(),
+            "weatherCode": weather["weather_code"]["value"],
             "windSpeed": str(int(round(weather["wind_speed"]["value"])))
             + " "
             + weather["wind_speed"]["units"],
