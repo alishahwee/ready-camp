@@ -10,3 +10,4 @@ parks.tsv
 node_modules
 static
 yarn-error.log
+.DS_Store
