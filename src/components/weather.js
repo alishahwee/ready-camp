@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import weatherCodes from "../utils/weather-codes";
 import tw from "twin.macro";
 
 const Wrapper = tw.div`grid grid-cols-1 self-center p-4`;
 const MainView = tw.div`grid grid-flow-col grid-rows-3`;
 
 const Weather = ({ parkId }) => {
-  const [realtime, setRealtime] = useState({});
+  const [realtime, setRealtime] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -17,15 +18,15 @@ const Weather = ({ parkId }) => {
     return () => { isMounted = false };
   }, []);
 
-  return (
+  return realtime ? (
     <Wrapper>
       <Current
-        description={realtime.description}
+        description={weatherCodes[realtime.weatherCode].description}
         temp={realtime.temp}
         windSpeed={realtime.windSpeed}
       />
     </Wrapper>
-  );
+  ) : null;
 };
 
 const Current = ({ description, temp, windSpeed }) => (
