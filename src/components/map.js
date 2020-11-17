@@ -45,7 +45,7 @@ const Map = ({ initLng, initLat, initZoom }) => {
     });
   }, []);
 
-  return <div ref={(el) => (mapContainer.current = el)} tw="sm:m-4" css={{"height": "400px;"}} />;
+  return <div ref={(el) => (mapContainer.current = el)} tw="sm:m-4 rounded" css={{"height": "400px;"}} />;
 };
 
 export default Map;
