@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import weatherCodes from "../utils/weather-codes";
 import tw from "twin.macro";
 
 const Wrapper = tw.div`grid grid-cols-1 self-center p-4`;
@@ -15,13 +14,16 @@ const Weather = ({ parkId }) => {
       .then((data) => {
         if (isMounted) setRealtime(data);
       });
-    return () => { isMounted = false };
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return realtime ? (
     <Wrapper>
       <Current
-        description={weatherCodes[realtime.weatherCode].description}
+        icon={realtime.icon}
+        description={realtime.description}
         temp={realtime.temp}
         windSpeed={realtime.windSpeed}
       />
@@ -29,13 +31,17 @@ const Weather = ({ parkId }) => {
   ) : null;
 };
 
-const Current = ({ description, temp, windSpeed }) => (
-  <MainView>
-    <h2 tw="text-lg row-span-1 col-span-2">Current weather:</h2>
-    <p tw="row-span-2">{description}</p>
-    <p tw="row-span-1 col-span-1">{temp}</p>
-    <p tw="row-span-1 col-span-1">{windSpeed}</p>
-  </MainView>
+const Current = ({ icon, description, temp, windSpeed }) => (
+  <>
+    <h1 tw="text-steal-teal">Current weather:</h1>
+    <MainView>
+      <h3>Today</h3>
+      <div dangerouslySetInnerHTML={{ __html: icon }} />
+      <p tw="row-span-2">{description}</p>
+      <p tw="row-span-1 col-span-1">{temp}</p>
+      <p tw="row-span-1 col-span-1">{windSpeed}</p>
+    </MainView>
+  </>
 );
 
 export default Weather;

@@ -1,7 +1,9 @@
 from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
+from markupsafe import Markup
 from data.models import connect_to_db
 from crud import *
+from helpers import weather_codes
 
 # Load env vars
 load_dotenv()
@@ -52,12 +54,20 @@ def weather(id):
 
     weather = get_realtime_weather(id)
 
+    description = weather_codes[weather["weather_code"]["value"]]["description"]
+    icon_path = (
+        weather_codes[weather["weather_code"]["value"]]["icon_path"]["day"]
+        or weather_codes[weather["weather_code"]["value"]]["icon_path"]
+    )
+    icon = open(icon_path).read()
+
     return jsonify(
         {
             "temp": str(int(round(weather["temp"]["value"])))
             + " º"
             + weather["temp"]["units"],
-            "weatherCode": weather["weather_code"]["value"],
+            "description": description,
+            "icon": icon,
             "windSpeed": str(int(round(weather["wind_speed"]["value"])))
             + " "
             + weather["wind_speed"]["units"],
