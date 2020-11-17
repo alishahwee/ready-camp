@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 
-const Wrapper = tw.div`grid grid-cols-1 self-center p-4`;
-const MainView = tw.div`grid grid-flow-col grid-rows-3`;
+const Wrapper = tw.div`self-center p-4`;
+const MainView = tw.div`grid grid-flow-row grid-rows-2 grid-cols-2 gap-4 p-4 rounded-lg bg-white`;
 
 const Weather = ({ parkId }) => {
   const [realtime, setRealtime] = useState(null);
@@ -33,12 +33,11 @@ const Weather = ({ parkId }) => {
 
 const Current = ({ icon, description, temp, windSpeed }) => (
   <>
-    <h1 tw="text-steal-teal">Current weather:</h1>
+    <h1 tw="font-body text-xl text-steal-teal">Current Weather</h1>
     <MainView>
-      <h3>Today</h3>
-      <div dangerouslySetInnerHTML={{ __html: icon }} />
-      <p tw="row-span-2">{description}</p>
-      <p tw="row-span-1 col-span-1">{temp}</p>
+      <div tw="h-20 w-20 row-span-2 col-span-1" dangerouslySetInnerHTML={{ __html: icon }} />
+      <p tw="text-5xl row-span-2 col-span-1">{temp}</p>
+      <p tw="row-span-1 col-span-1">{description}</p>
       <p tw="row-span-1 col-span-1">{windSpeed}</p>
     </MainView>
   </>
