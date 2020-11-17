@@ -17,7 +17,7 @@ const Homepage = () => (
     <Helmet>
       <title>Homepage</title>
     </Helmet>
-    <Logo />
+    <Logo textSize={tw`text-7xl`} />
     <p css={pStyle}>An all-in-one camping planner for Minnesota state parks</p>
     <SearchBar />
   </Wrapper>
