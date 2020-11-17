@@ -17,6 +17,7 @@ module.exports = {
         "gold-crayola": "#eec584",
         "steal-teal": "#515a47",
         "lavender-fade": "#f2ece8",
+        "sage": "#cacaaa",
       },
       fontSize: {
         "7xl": "5rem",
