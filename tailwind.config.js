@@ -14,7 +14,7 @@ module.exports = {
         body: ["Poppins", "sans-serif"],
       },
       colors: {
-        "gold-crayola": "#eec584",
+        "maximum-yellow-red": "#ffcb69",
         "steal-teal": "#515a47",
         "lavender-fade": "#f2ece8",
         "sage": "#cacaaa",
