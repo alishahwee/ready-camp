@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 from os import getenv
 import requests
+import jwt
 
 # Import env vars
 load_dotenv()
@@ -84,7 +85,10 @@ def login_user(username, password):
     user = User.query.filter_by(username=username).first()
 
     if user and check_password_hash(user.password, password):
-        return user.id  # Add to session in app.py
+        payload = {"sub": user.id}
+        return jwt.encode(
+            payload, app.config.get("SECRET_KEY"), algorithm="HS256"
+        )  # Return as JWT
     else:
         return {"error": "username or password are incorrect"}, 401
 
