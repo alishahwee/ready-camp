@@ -132,8 +132,8 @@ class UserItem(db.Model):
         )
 
 
-def connect_to_db(flask_app, db_uri=getenv("DB_URI"), echo=True):
-    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+def connect_to_db(flask_app, db_uri="DB_URI", echo=True):
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = getenv(db_uri)
     flask_app.config["SQLALCHEMY_ECHO"] = echo
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
