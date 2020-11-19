@@ -101,8 +101,6 @@ def login_user(username, password):
         return jwt.encode(
             payload, getenv("SECRET_KEY"), algorithm="HS256"
         )  # Return as JWT
-    else:
-        return {"error": "username or password are incorrect"}, 401
 
 
 def get_items(is_rainy=False, is_winter=False):
