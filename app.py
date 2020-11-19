@@ -8,7 +8,7 @@ from helpers import weather_codes
 load_dotenv()
 
 app = Flask(__name__)
-connect_to_db(app)
+connect_to_db(app, echo=False)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
