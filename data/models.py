@@ -13,6 +13,8 @@ db = SQLAlchemy()
 class Item(db.Model):
     """A class object representing camping equipment."""
 
+    __tablename__ = "items"
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
     is_rainy = db.Column(db.Boolean)
@@ -28,6 +30,8 @@ class Item(db.Model):
 
 class Park(db.Model):
     """A Minnesota state park object."""
+
+    __tablename__ = "parks"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
@@ -59,11 +63,13 @@ class Park(db.Model):
 class Image(db.Model):
     """Image objects from state parks."""
 
+    __tablename__ = "images"
+
     id = db.Column(db.Integer, primary_key=True)
-    park_id = db.Column(db.Integer, db.ForeignKey("park.id"), nullable=False)
+    park_id = db.Column(db.Integer, db.ForeignKey("parks.id"), nullable=False)
     url = db.Column(db.String)
 
-    park = db.relationship("Park", backref="image")
+    park = db.relationship("Park", backref="images")
 
     def __repr__(self) -> str:
         return "<Image id='%i' park_id='%i'>" % (self.id, self.park_id)
@@ -72,11 +78,13 @@ class Image(db.Model):
 class Activity(db.Model):
     """Activity objects from state parks."""
 
+    __tablename__ = "activities"
+
     id = db.Column(db.Integer, primary_key=True)
-    park_id = db.Column(db.Integer, db.ForeignKey("park.id"), nullable=False)
+    park_id = db.Column(db.Integer, db.ForeignKey("parks.id"), nullable=False)
     activity = db.Column(db.String(100))
 
-    park = db.relationship("Park", backref="activity")
+    park = db.relationship("Park", backref="activities")
 
     def __repr__(self) -> str:
         return "<Activity '%s'>" % self.activity
@@ -85,9 +93,11 @@ class Activity(db.Model):
 class User(db.Model):
     """User object."""
 
+    __tablename__ = "users"
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
-    password = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String, nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
 
     # favorite = a list of Favorite objects
@@ -100,12 +110,14 @@ class User(db.Model):
 class Favorite(db.Model):
     """A favorite parks object."""
 
-    id = db.Column(db.Integer, primary_key=True)
-    park_id = db.Column(db.Integer, db.ForeignKey("park.id"), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    __tablename__ = "favorites"
 
-    park = db.relationship("Park", backref="favorite")
-    user = db.relationship("User", backref="favorite")
+    id = db.Column(db.Integer, primary_key=True)
+    park_id = db.Column(db.Integer, db.ForeignKey("parks.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    park = db.relationship("Park", backref="favorites")
+    user = db.relationship("User", backref="favorites")
 
     def __repr__(self) -> str:
         return "<Favorite park_id='%i' user_id='%i'>" % (self.park_id, self.user_id)
@@ -114,15 +126,17 @@ class Favorite(db.Model):
 class UserItem(db.Model):
     """An object representing items belonging to a User."""
 
+    __tablename__ = "user_items"
+
     id = db.Column(db.Integer, primary_key=True)
-    park_id = db.Column(db.Integer, db.ForeignKey("park.id"), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    item_id = db.Column(db.Integer, db.ForeignKey("item.id"), nullable=False)
+    park_id = db.Column(db.Integer, db.ForeignKey("parks.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey("items.id"), nullable=False)
     is_checked = db.Column(db.Boolean)
 
-    park = db.relationship("Park", backref="user_item")
-    user = db.relationship("User", backref="user_item")
-    item = db.relationship("Item", backref="user_item")
+    park = db.relationship("Park", backref="user_items")
+    user = db.relationship("User", backref="user_items")
+    item = db.relationship("Item", backref="user_items")
 
     def __repr__(self) -> str:
         return "<UserItem park_id='%i' user_id='%i' item_id='%i'>" % (
@@ -147,6 +161,7 @@ if __name__ == "__main__":
     from app import app
 
     connect_to_db(app)
+    db.drop_all()
     db.create_all()
 
     with app.app_context():
