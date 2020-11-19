@@ -63,12 +63,13 @@ def get_favorites(user_id):
     return favorites
 
 
-def user_exists(username):
+def user_exists(username, email):
     """Return a boolean based on whether user already exists."""
 
-    user = User.query.filter_by(username=username).first()
+    user_by_username = User.query.filter_by(username=username).first()
+    user_by_email = User.query.filter_by(email=email).first()
 
-    return bool(user)
+    return bool(user_by_username) or bool(user_by_email)
 
 
 def register_user(username, password, email):
