@@ -13,14 +13,22 @@ class TestAuth(unittest.TestCase):
         app.config["TESTING"] = True
 
         # Connect to test db
-        connect_to_db(app, db_uri="TEST_DB_URI")
+        connect_to_db(app, db_uri="TEST_DB_URI", echo=False)
 
-        db.create_all()
-        db.session.commit()
-
-    def tearDown(self) -> None:
-        db.session.remove()
         db.drop_all()
+        db.create_all()
 
     def test_registration(self):
         """Can users register an account successfully?"""
+        data = {
+            "username": "testname",
+            "password": "testword",
+            "email": "test@testmail.com",
+        }
+        res = self.client.post("/auth/register", data=data)
+
+        self.assertIn(b"User registered successfully", res.data)
+
+
+if __name__ == "__main__":
+    unittest.main()
