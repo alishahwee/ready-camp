@@ -63,20 +63,31 @@ def get_favorites(user_id):
     return favorites
 
 
+def user_exists(username):
+    """Return a boolean based on whether user already exists."""
+
+    user = User.query.filter_by(username=username).first()
+
+    return bool(user)
+
+
 def register_user(username, password, email):
     """Register a new user."""
 
-    new_user = User(
-        username=username, password=generate_password_hash(password), email=email
-    )
-    db.session.add(new_user)
-
     try:
+        new_user = User(
+            username=username, password=generate_password_hash(password), email=email
+        )
+        db.session.add(new_user)
         db.session.commit()
-    except:
-        return {"error": "A user already has that username/email"}, 500
 
-    return {"message": "User registered successfully"}, 201
+        payload = {"sub": new_user.id}
+
+        return jwt.encode(
+            payload, getenv("SECRET_KEY"), algorithm="HS256"
+        )  # Return as JWT
+    except Exception as e:
+        return e
 
 
 def login_user(username, password):
@@ -87,7 +98,7 @@ def login_user(username, password):
     if user and check_password_hash(user.password, password):
         payload = {"sub": user.id}
         return jwt.encode(
-            payload, app.config.get("SECRET_KEY"), algorithm="HS256"
+            payload, getenv("SECRET_KEY"), algorithm="HS256"
         )  # Return as JWT
     else:
         return {"error": "username or password are incorrect"}, 401
