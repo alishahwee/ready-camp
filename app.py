@@ -26,7 +26,9 @@ def homepage(path):
 def register():
     """Register a new user."""
 
-    username, password, email = request.form
+    username = request.form.get("username")
+    password = request.form.get("password")
+    email = request.form.get("email")
 
     res = register_user(username, password, email)
 
