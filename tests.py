@@ -1,6 +1,7 @@
 import unittest
 from app import app
 from data.models import connect_to_db, db
+import json
 
 
 class TestAuth(unittest.TestCase):
@@ -20,14 +21,20 @@ class TestAuth(unittest.TestCase):
 
     def test_registration(self):
         """Can users register an account successfully?"""
-        data = {
-            "username": "testname",
-            "password": "testword",
-            "email": "test@testmail.com",
-        }
-        res = self.client.post("/auth/register", data=data)
+        with self.client:
+            res = self.client.post(
+                "/auth/register",
+                data=dict(
+                    username="testname", password="testword", email="test@testmail.com"
+                ),
+            )
 
-        self.assertIn(b"User registered successfully", res.data)
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "success")
+            self.assertTrue(data["message"] == "User successfully registered.")
+            self.assertTrue(data["token"])
+            self.assertTrue(res.content_type == "application/json")
+            self.assertEqual(res.status_code, 201)
 
 
 if __name__ == "__main__":
