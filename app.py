@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
+from flask.helpers import make_response
 from data.models import connect_to_db
 from crud import *
 from helpers import weather_codes
@@ -30,9 +31,25 @@ def register():
     password = request.form.get("password")
     email = request.form.get("email")
 
-    res = register_user(username, password, email)
-
-    return jsonify(res)
+    if not user_exists(username):
+        try:
+            token = register_user(username, password, email)
+            response = {
+                "status": "success",
+                "message": "User successfully registered.",
+                "token": token.decode(),
+            }
+            return make_response(jsonify(response)), 201
+        except Exception as e:
+            print(e)
+            response = {
+                "status": "fail",
+                "message": "Some error occurred. Please try again.",
+            }
+            return make_response(jsonify(response)), 401
+    else:
+        response = {"status": "fail", "message": "User already exists. Please log in."}
+        return make_response(jsonify(response)), 202
 
 
 @app.route("/api/parks")
