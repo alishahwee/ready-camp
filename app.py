@@ -31,7 +31,7 @@ def register():
     password = request.form.get("password")
     email = request.form.get("email")
 
-    if not user_exists(username):
+    if not user_exists(username, email):
         try:
             token = register_user(username, password, email)
             response = {
@@ -48,7 +48,10 @@ def register():
             }
             return make_response(jsonify(response)), 401
     else:
-        response = {"status": "fail", "message": "User already exists. Please log in."}
+        response = {
+            "status": "fail",
+            "message": "User already exists. Please use a different username and/or email.",
+        }
         return make_response(jsonify(response)), 202
 
 
