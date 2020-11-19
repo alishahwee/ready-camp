@@ -69,10 +69,12 @@ def weather(id):
 
     description = weather_codes[weather["weather_code"]["value"]]["description"]
 
-    if "day" in weather_codes[weather["weather_code"]["value"]]["icon_path"]:
-        icon_path = weather_codes[weather["weather_code"]["value"]]["icon_path"]["day"]
-    else: 
-        icon_path = weather_codes[weather["weather_code"]["value"]]["icon_path"]
+    weather_icons = weather_codes[weather["weather_code"]["value"]]["icon_path"]
+
+    if "day" in weather_icons:
+        icon_path = weather_icons["day"]
+    else:
+        icon_path = weather_icons
 
     icon = open(icon_path).read()
 
