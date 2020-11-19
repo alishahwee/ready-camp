@@ -37,16 +37,10 @@ class TestAuth(unittest.TestCase):
             self.assertTrue(res.content_type == "application/json")
             self.assertEqual(res.status_code, 201)
 
-    def test_registration_with_existing_user(self):
-        """Test whether user will get rejected with an existing account."""
+    def test_registration_with_existing_username_and_email(self):
+        """Test a registration with an existing username and email."""
 
-        user = User(
-            username="testname",
-            password=generate_password_hash("testword"),
-            email="test@testmail.com",
-        )
-        db.session.add(user)
-        db.session.commit()
+        create_fake_user()  # testname, testword, test@testmail.com
 
         with self.client:
             res = self.client.post(
@@ -58,9 +52,44 @@ class TestAuth(unittest.TestCase):
 
             data = json.loads(res.data.decode())
             self.assertTrue(data["status"] == "fail")
-            self.assertTrue(data["message"] == "User already exists. Please log in.")
+            self.assertTrue(
+                data["message"]
+                == "User already exists. Please use a different username and/or email."
+            )
             self.assertTrue(res.content_type == "application/json")
             self.assertEqual(res.status_code, 202)
+
+    def test_registration_with_existing_username_only(self):
+        """Test a user with just an existing username."""
+
+        create_fake_user()  # testname, testword, test@testmail.com
+
+        with self.client:
+            res = self.client.post(
+                "/auth/register",
+                data=dict(
+                    username="testname", password="testword", email="new_test@testmail.com"
+                ),
+            )
+
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "fail")
+            self.assertTrue(
+                data["message"]
+                == "User already exists. Please use a different username and/or email."
+            )
+            self.assertTrue(res.content_type == "application/json")
+            self.assertEqual(res.status_code, 202)
+
+
+def create_fake_user():
+    user = User(
+        username="testname",
+        password=generate_password_hash("testword"),
+        email="test@testmail.com",
+    )
+    db.session.add(user)
+    db.session.commit()
 
 
 if __name__ == "__main__":
