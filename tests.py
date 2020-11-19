@@ -57,7 +57,7 @@ class TestAuth(unittest.TestCase):
                 == "User already exists. Please use a different username and/or email."
             )
             self.assertTrue(res.content_type == "application/json")
-            self.assertEqual(res.status_code, 202)
+            self.assertEqual(res.status_code, 403)
 
     def test_registration_with_existing_username_only(self):
         """Test a user with just an existing username."""
@@ -81,7 +81,7 @@ class TestAuth(unittest.TestCase):
                 == "User already exists. Please use a different username and/or email."
             )
             self.assertTrue(res.content_type == "application/json")
-            self.assertEqual(res.status_code, 202)
+            self.assertEqual(res.status_code, 403)
 
     def test_registration_with_existing_email_only(self):
         """Test a user with just an existing email."""
@@ -105,7 +105,7 @@ class TestAuth(unittest.TestCase):
                 == "User already exists. Please use a different username and/or email."
             )
             self.assertTrue(res.content_type == "application/json")
-            self.assertEqual(res.status_code, 202)
+            self.assertEqual(res.status_code, 403)
 
 
 def create_fake_user():
