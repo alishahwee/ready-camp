@@ -5,18 +5,14 @@ const Wrapper = tw.div`self-center p-4`;
 const MainView = tw.div`grid grid-flow-row grid-rows-2 grid-cols-2 gap-2 p-4 rounded-lg bg-white place-items-center`;
 
 const Weather = ({ parkId }) => {
-  const [realtime, setRealtime] = useState(null);
+  const [realtime, setRealtime] = useState({});
 
   useEffect(() => {
-    let isMounted = true;
     fetch(`/api/weather/${parkId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (isMounted) setRealtime(data);
+        setRealtime(data);
       });
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   return realtime ? (
