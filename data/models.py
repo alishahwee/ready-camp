@@ -22,7 +22,7 @@ class Item(db.Model):
     is_optional = db.Column(db.Boolean, nullable=False)
     category = db.Column(db.String(20), nullable=False)
 
-    # user_item = a list of UserItem objects
+    # user_items = a list of UserItem objects
 
     def __repr__(self) -> str:
         return "<Item '%s'>" % self.name
@@ -39,10 +39,10 @@ class Park(db.Model):
     coordinates = db.Column(db.String, nullable=False)
     url = db.Column(db.String, nullable=False)
 
-    # image = a list of Image objects
-    # activity = a list of Activity objects
-    # favorite = a list of Favorite objects
-    # user_item = a list of UserItem objects
+    # images = a list of Image objects
+    # activities = a list of Activity objects
+    # favorites = a list of Favorite objects
+    # user_items = a list of UserItem objects
 
     @hybrid_property
     def latlon_as_list(self):
@@ -100,8 +100,8 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
 
-    # favorite = a list of Favorite objects
-    # user_item = a list of UserItem objects
+    # favorites = a list of Favorite objects
+    # user_items = a list of UserItem objects
 
     def __repr__(self) -> str:
         return "<User '%s'>" % self.username
