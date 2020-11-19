@@ -1,6 +1,5 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
-from markupsafe import Markup
 from data.models import connect_to_db
 from crud import *
 from helpers import weather_codes
@@ -11,6 +10,9 @@ load_dotenv()
 app = Flask(__name__)
 connect_to_db(app)
 
+# Ensure templates are auto-reloaded
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
@@ -18,6 +20,17 @@ def homepage(path):
     """Load the homepage."""
 
     return render_template("index.html")
+
+
+@app.route("/auth/register", methods=["POST"])
+def register():
+    """Register a new user."""
+
+    username, password, email = request.form
+
+    res = register_user(username, password, email)
+
+    return jsonify(res)
 
 
 @app.route("/api/parks")
@@ -55,10 +68,12 @@ def weather(id):
     weather = get_realtime_weather(id)
 
     description = weather_codes[weather["weather_code"]["value"]]["description"]
-    icon_path = (
-        weather_codes[weather["weather_code"]["value"]]["icon_path"]["day"]
-        or weather_codes[weather["weather_code"]["value"]]["icon_path"]
-    )
+
+    if "day" in weather_codes[weather["weather_code"]["value"]]["icon_path"]:
+        icon_path = weather_codes[weather["weather_code"]["value"]]["icon_path"]["day"]
+    else: 
+        icon_path = weather_codes[weather["weather_code"]["value"]]["icon_path"]
+
     icon = open(icon_path).read()
 
     return jsonify(
