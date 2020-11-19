@@ -55,6 +55,13 @@ def register():
         return make_response(jsonify(response)), 202
 
 
+@app.route("/auth/login", methods=["POST"])
+def login():
+    """Log in a user."""
+
+    # TODO
+
+
 @app.route("/api/parks")
 def parks():
     """Return all parks in JSON."""
@@ -77,8 +84,8 @@ def park(id):
             "address": park.address,
             "coordinates": {"lat": park.lat, "lon": park.lon},
             "url": park.url,
-            "images": [image.url for image in park.image],
-            "activities": [activity.activity for activity in park.activity],
+            "images": [image.url for image in park.images],
+            "activities": [activity.activity for activity in park.activities],
         }
     )
 
