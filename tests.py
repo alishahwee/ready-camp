@@ -68,7 +68,33 @@ class TestAuth(unittest.TestCase):
             res = self.client.post(
                 "/auth/register",
                 data=dict(
-                    username="testname", password="testword", email="new_test@testmail.com"
+                    username="testname",
+                    password="testword",
+                    email="new_test@testmail.com",
+                ),
+            )
+
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "fail")
+            self.assertTrue(
+                data["message"]
+                == "User already exists. Please use a different username and/or email."
+            )
+            self.assertTrue(res.content_type == "application/json")
+            self.assertEqual(res.status_code, 202)
+
+    def test_registration_with_existing_email_only(self):
+        """Test a user with just an existing email."""
+
+        create_fake_user()  # testname, testword, test@testmail.com
+
+        with self.client:
+            res = self.client.post(
+                "/auth/register",
+                data=dict(
+                    username="new_testname",
+                    password="testword",
+                    email="test@testmail.com",
                 ),
             )
 
