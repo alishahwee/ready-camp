@@ -52,14 +52,37 @@ def register():
             "status": "fail",
             "message": "User already exists. Please use a different username and/or email.",
         }
-        return make_response(jsonify(response)), 202
+        return make_response(jsonify(response)), 403
 
 
 @app.route("/auth/login", methods=["POST"])
 def login():
     """Log in a user."""
 
-    # TODO
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if user_exists(username):
+        token = login_user(username, password)
+        if token:
+            response = {
+                "status": "success",
+                "message": "User successfully logged in.",
+                "token": token.decode(),
+            }
+            return make_response(jsonify(response)), 200
+        else:
+            response = {
+                "status": "fail",
+                "message": "Password is incorrect. Please try again."
+            }
+            return make_response(jsonify(response)), 403
+    else:
+        response = {
+            "status": "fail",
+            "message": "Username is incorrect or does not exist."
+        }
+        return make_response(jsonify(response)), 403
 
 
 @app.route("/api/parks")
