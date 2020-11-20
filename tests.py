@@ -107,6 +107,26 @@ class TestAuth(unittest.TestCase):
             self.assertTrue(res.content_type == "application/json")
             self.assertEqual(res.status_code, 403)
 
+    def test_registered_user_login(self):
+        """Test a log in for a registered user."""
+
+        create_fake_user()  # testname, testword, test@testmail.com
+
+        with self.client:
+            res = self.client.post(
+                "/auth/login",
+                data=dict(
+                    username="testname", password="testword", email="test@testmail.com"
+                ),
+            )
+
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "success")
+            self.assertTrue(data["message"] == "User successfully logged in.")
+            self.assertTrue(data["token"])
+            self.assertTrue(res.content_type == "application/json")
+            self.assertEqual(res.status_code, 200)
+
 
 def create_fake_user():
     user = User(
