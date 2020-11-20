@@ -116,7 +116,7 @@ class TestAuth(unittest.TestCase):
             res = self.client.post(
                 "/auth/login",
                 data=dict(
-                    username="testname", password="testword", email="test@testmail.com"
+                    username="testname", password="testword"
                 ),
             )
 
@@ -134,13 +134,32 @@ class TestAuth(unittest.TestCase):
             res = self.client.post(
                 "/auth/login",
                 data=dict(
-                    username="testname", password="testword", email="test@testmail.com"
+                    username="testname", password="testword"
                 ),
             )
 
             data = json.loads(res.data.decode())
             self.assertTrue(data["status"] == "fail")
             self.assertTrue(data["message"] == "Username does not exist.")
+            self.assertTrue(res.content_type == "application/json")
+            self.assertEqual(res.status_code, 403)
+
+    def test_registered_user_login_with_incorrect_password(self):
+        """Test a log in for a registered user, but with an incorrect password."""
+
+        create_fake_user()  # testname, testword, test@testmail.com
+
+        with self.client:
+            res = self.client.post(
+                "/auth/login",
+                data=dict(
+                    username="testname", password="incorrect_password"
+                ),
+            )
+
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "fail")
+            self.assertTrue(data["message"] == "Password is incorrect. Please try again.")
             self.assertTrue(res.content_type == "application/json")
             self.assertEqual(res.status_code, 403)
 
