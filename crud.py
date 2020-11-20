@@ -111,6 +111,31 @@ def login_user(username, password):
         )  # Return as JWT
 
 
+def blacklist_token(token):
+    """Blacklist a token."""
+
+    try:
+        token = BlacklistToken(token)
+        db.session.add(token)
+        db.session.commit()
+    except Exception as e:
+        return e
+
+
+def is_token_valid(token):
+    """Check the validity of the JWT."""
+
+    try:
+        payload = jwt.decode(token, getenv("SECRET_KEY"))
+        blacklisted_token = BlacklistToken.query.filter_by(token=token).first()
+        if blacklisted_token:
+            return False
+        else:
+            return payload["sub"]
+    except:
+        return False
+
+
 def get_items(is_rainy=False, is_winter=False):
     """Get all relevant camping items."""
 
