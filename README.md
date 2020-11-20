@@ -18,6 +18,7 @@ A web app that lets you efficiently plan camping trips in Minnesota. Simply look
 - CSS-in-JS (Emotion)
 - React Router
 - React Helmet
+- PyJWT
 
 ### Data
 
