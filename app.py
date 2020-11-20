@@ -85,6 +85,31 @@ def login():
         return make_response(jsonify(response)), 403
 
 
+@app.route("/auth/logout")
+def logout():
+    """Log out a user and blacklist their token."""
+
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.split()[1]
+
+    try:
+        token_valid = is_token_valid(token)
+        if token_valid:
+            blacklist_token(token)
+            response = {
+                "status": "success",
+                "message": "User successfully logged out."
+            }
+            return make_response(jsonify(response)), 200
+    except Exception as e:
+        response = {
+            "status": "fail", 
+            "message": e
+        }
+        return make_response(jsonify(response)), 401
+
+
+
 @app.route("/api/parks")
 def parks():
     """Return all parks in JSON."""
