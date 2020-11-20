@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 from os import getenv
 import requests
+import datetime
 import jwt
 
 # Import env vars
@@ -82,8 +83,11 @@ def register_user(username, password, email):
         db.session.add(new_user)
         db.session.commit()
 
-        payload = {"sub": new_user.id}
-
+        payload = {
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            "iat": datetime.datetime.utcnow(),
+            "sub": new_user.id
+        }
         return jwt.encode(
             payload, getenv("SECRET_KEY"), algorithm="HS256"
         )  # Return as JWT
@@ -97,7 +101,11 @@ def login_user(username, password):
     user = User.query.filter_by(username=username).first()
 
     if user and check_password_hash(user.password, password):
-        payload = {"sub": user.id}
+        payload = {
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            "iat": datetime.datetime.utcnow(),
+            "sub": user.id
+        }
         return jwt.encode(
             payload, getenv("SECRET_KEY"), algorithm="HS256"
         )  # Return as JWT
