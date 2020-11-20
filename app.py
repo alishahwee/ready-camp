@@ -80,7 +80,7 @@ def login():
     else:
         response = {
             "status": "fail",
-            "message": "Username is incorrect or does not exist."
+            "message": "Username does not exist."
         }
         return make_response(jsonify(response)), 403
 
