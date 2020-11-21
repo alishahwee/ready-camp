@@ -126,14 +126,16 @@ def is_token_valid(token):
     """Check the validity of the JWT."""
 
     try:
-        payload = jwt.decode(token, getenv("SECRET_KEY"))
+        payload = jwt.decode(token, getenv("SECRET_KEY"), algorithms=["HS256"])
         blacklisted_token = BlacklistToken.query.filter_by(token=token).first()
         if blacklisted_token:
             return False
         else:
             return payload["sub"]
-    except:
-        return False
+    except jwt.ExpiredSignatureError:
+        return "Signature expired. Please log in again."
+    except jwt.InvalidTokenError:
+        return "Invalid token. Please log in again."
 
 
 def get_items(is_rainy=False, is_winter=False):
