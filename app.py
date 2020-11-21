@@ -85,7 +85,7 @@ def login():
         return make_response(jsonify(response)), 403
 
 
-@app.route("/auth/logout")
+@app.route("/auth/logout", methods=["POST"])
 def logout():
     """Log out a user and blacklist their token."""
 
