@@ -133,9 +133,9 @@ def is_token_valid(token):
         else:
             return payload["sub"]
     except jwt.ExpiredSignatureError:
-        return "Signature expired. Please log in again."
+        return False
     except jwt.InvalidTokenError:
-        return "Invalid token. Please log in again."
+        return False
 
 
 def get_items(is_rainy=False, is_winter=False):
