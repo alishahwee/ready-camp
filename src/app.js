@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Homepage from "./pages/homepage";
+import RegisterPage from "./pages/register-page";
 import ParkPage from "./pages/park-page"
 import { GlobalStyles } from "twin.macro";
 import "fontsource-pattaya";
@@ -12,6 +13,9 @@ const App = () => (
     <Switch>
       <Route exact path="/">
         <Homepage />
+      </Route>
+      <Route path="/register">
+        <RegisterPage />
       </Route>
       <Route path="/park/:id">
         <ParkPage />
