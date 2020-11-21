@@ -23,13 +23,14 @@ module.exports = {
                 {
                   export: "jsx",
                   import: "__cssprop",
-                  module: "@emotion/core",
+                  module: "@emotion/react",
                 },
               ],
               [
-                "babel-plugin-transform-react-jsx",
+                "@babel/plugin-transform-react-jsx",
                 {
                   pragma: "__cssprop",
+                  pragmaFrag: "React.Fragment",
                 },
               ],
             ],
