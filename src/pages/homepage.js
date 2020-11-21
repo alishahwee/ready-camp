@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Helmet from "react-helmet";
 import tw, { styled } from "twin.macro";
 import bgHomepage from "../assets/bgHomepage.png";
