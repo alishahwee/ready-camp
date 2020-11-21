@@ -1,8 +1,8 @@
 import unittest
-from werkzeug.datastructures import Authorization
 from werkzeug.security import generate_password_hash
 from app import app
 from data.models import connect_to_db, db, User
+from crud import blacklist_token
 import json
 import time
 
@@ -191,7 +191,30 @@ class TestAuth(unittest.TestCase):
 
             data = json.loads(res.data.decode())
             self.assertTrue(data["status"] == "fail")
-            self.assertTrue(data["message"] == "Token is expired or invalid. Please log in again.")
+            self.assertTrue(
+                data["message"]
+                == "Token is expired, invalid, or blacklisted. Please log in again."
+            )
+            self.assertEqual(res.status_code, 401)
+
+    def test_valid_blacklisted_token_logout(self):
+        """Test a logout on a valid blacklisted token."""
+
+        create_fake_user()  # testname, testword, test@testmail.com
+
+        with self.client:
+            token = get_token_from_login(self)  # Successful login returns JWT
+            blacklist_token(token)
+            res = self.client.post(
+                "/auth/logout", headers=dict(Authorization="Bearer " + token)
+            )
+
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "fail")
+            self.assertTrue(
+                data["message"]
+                == "Token is expired, invalid, or blacklisted. Please log in again."
+            )
             self.assertEqual(res.status_code, 401)
 
 
