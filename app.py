@@ -125,6 +125,23 @@ def parks():
     return jsonify([{"id": park.id, "name": park.name} for park in parks])
 
 
+@app.route("/api/items")
+def items():
+    """Return all the items in an organized JSON."""
+
+    items = get_items()
+
+    item_dict = {}
+
+    for item in items:
+        if item.category not in item_dict:
+            item_dict[item.category] = [item.name]
+        else:
+            item_dict[item.category].append(item.name)
+
+    return jsonify(item_dict)        
+
+
 @app.route("/api/park/<int:id>")
 def park(id):
     """Return a park page from ID."""
