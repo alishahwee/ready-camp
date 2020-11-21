@@ -105,7 +105,7 @@ def logout():
         else:
             response = {
                 "status": "fail",
-                "message": "Token is expired or invalid. Please log in again."
+                "message": "Token is expired, invalid, or blacklisted. Please log in again."
             }
             return make_response(jsonify(response)), 401
     except Exception as e:
