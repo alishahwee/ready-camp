@@ -1,4 +1,5 @@
 import unittest
+from werkzeug.datastructures import Authorization
 from werkzeug.security import generate_password_hash
 from app import app
 from data.models import connect_to_db, db, User
@@ -115,9 +116,7 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/login",
-                data=dict(
-                    username="testname", password="testword"
-                ),
+                data=dict(username="testname", password="testword"),
             )
 
             data = json.loads(res.data.decode())
@@ -133,9 +132,7 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/login",
-                data=dict(
-                    username="testname", password="testword"
-                ),
+                data=dict(username="testname", password="testword"),
             )
 
             data = json.loads(res.data.decode())
@@ -152,16 +149,32 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/login",
-                data=dict(
-                    username="testname", password="incorrect_password"
-                ),
+                data=dict(username="testname", password="incorrect_password"),
             )
 
             data = json.loads(res.data.decode())
             self.assertTrue(data["status"] == "fail")
-            self.assertTrue(data["message"] == "Password is incorrect. Please try again.")
+            self.assertTrue(
+                data["message"] == "Password is incorrect. Please try again."
+            )
             self.assertTrue(res.content_type == "application/json")
             self.assertEqual(res.status_code, 403)
+
+    def test_valid_logout(self):
+        """Test logout before token expires."""
+
+        create_fake_user()  # testname, testword, test@testmail.com
+
+        with self.client:
+            token = get_token_from_login(self) # Successful login returns JWT
+            res = self.client.post(
+                "/auth/logout", headers=dict(Authorization="Bearer " + token)
+            )
+
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "success")
+            self.assertTrue(data["message"] == "User successfully logged out.")
+            self.assertEqual(res.status_code, 200)
 
 
 def create_fake_user():
@@ -172,6 +185,15 @@ def create_fake_user():
     )
     db.session.add(user)
     db.session.commit()
+
+
+def get_token_from_login(self):
+    return json.loads(
+        self.client.post(
+            "/auth/login",
+            data=dict(username="testname", password="testword"),
+        ).data.decode()
+    )["token"]
 
 
 if __name__ == "__main__":
