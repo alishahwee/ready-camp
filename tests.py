@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash
 from app import app
 from data.models import connect_to_db, db, User
 import json
+import time
 
 
 class TestAuth(unittest.TestCase):
@@ -166,7 +167,7 @@ class TestAuth(unittest.TestCase):
         create_fake_user()  # testname, testword, test@testmail.com
 
         with self.client:
-            token = get_token_from_login(self) # Successful login returns JWT
+            token = get_token_from_login(self)  # Successful login returns JWT
             res = self.client.post(
                 "/auth/logout", headers=dict(Authorization="Bearer " + token)
             )
@@ -175,6 +176,23 @@ class TestAuth(unittest.TestCase):
             self.assertTrue(data["status"] == "success")
             self.assertTrue(data["message"] == "User successfully logged out.")
             self.assertEqual(res.status_code, 200)
+
+    def test_invalid_logout(self):
+        """Test a logout after a token expires."""
+
+        create_fake_user()  # testname, testword, test@testmail.com
+
+        with self.client:
+            token = get_token_from_login(self)  # Successful login returns JWT
+            time.sleep(6)  # Cause token to expire
+            res = self.client.post(
+                "/auth/logout", headers=dict(Authorization="Bearer " + token)
+            )
+
+            data = json.loads(res.data.decode())
+            self.assertTrue(data["status"] == "fail")
+            self.assertTrue(data["message"] == "Token is expired or invalid. Please log in again.")
+            self.assertEqual(res.status_code, 401)
 
 
 def create_fake_user():
