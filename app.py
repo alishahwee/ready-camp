@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
+from flask import json
 from flask.helpers import make_response
 from data.models import connect_to_db
 from crud import *
@@ -101,6 +102,12 @@ def logout():
                 "message": "User successfully logged out."
             }
             return make_response(jsonify(response)), 200
+        else:
+            response = {
+                "status": "fail",
+                "message": "Token is expired or invalid. Please log in again."
+            }
+            return make_response(jsonify(response)), 401
     except Exception as e:
         response = {
             "status": "fail", 
