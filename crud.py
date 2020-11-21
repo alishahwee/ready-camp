@@ -84,7 +84,7 @@ def register_user(username, password, email):
         db.session.commit()
 
         payload = {
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
             "iat": datetime.datetime.utcnow(),
             "sub": new_user.id
         }
@@ -102,7 +102,7 @@ def login_user(username, password):
 
     if user and check_password_hash(user.password, password):
         payload = {
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
             "iat": datetime.datetime.utcnow(),
             "sub": user.id
         }
