@@ -1,6 +1,5 @@
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
-from flask import json
 from flask.helpers import make_response
 from data.models import connect_to_db
 from crud import *
