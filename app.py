@@ -135,9 +135,9 @@ def items():
 
     for item in items:
         if item.category not in item_dict:
-            item_dict[item.category] = [item.name]
+            item_dict[item.category] = [{"id": item.id, "name": item.name}]
         else:
-            item_dict[item.category].append(item.name)
+            item_dict[item.category].append({"id": item.id, "name": item.name})
 
     return jsonify(item_dict)        
 
