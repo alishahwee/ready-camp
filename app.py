@@ -9,7 +9,7 @@ from helpers import weather_codes
 load_dotenv()
 
 app = Flask(__name__)
-connect_to_db(app, echo=False)
+connect_to_db(app, db_uri="TEST_DB_URI")
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -27,9 +27,7 @@ def homepage(path):
 def register():
     """Register a new user."""
 
-    username = request.form.get("username")
-    password = request.form.get("password")
-    email = request.form.get("email")
+    username, password, email = request.get_json().values()
 
     if not user_exists(username, email):
         try:
@@ -59,8 +57,7 @@ def register():
 def login():
     """Log in a user."""
 
-    username = request.form.get("username")
-    password = request.form.get("password")
+    username, password = request.get_json().values()
 
     if user_exists(username):
         token = login_user(username, password)

@@ -17,7 +17,7 @@ class TestAuth(unittest.TestCase):
         app.config["TESTING"] = True
 
         # Connect to test db
-        connect_to_db(app, db_uri="TEST_DB_URI", echo=False)
+        connect_to_db(app, db_uri="TEST_DB_URI")
 
         db.drop_all()
         db.create_all()
@@ -27,9 +27,14 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/register",
-                data=dict(
-                    username="testname", password="testword", email="test@testmail.com"
+                data=json.dumps(
+                    dict(
+                        username="testname",
+                        password="testword",
+                        email="test@testmail.com",
+                    )
                 ),
+                content_type="application/json",
             )
 
             data = json.loads(res.data.decode())
@@ -47,9 +52,14 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/register",
-                data=dict(
-                    username="testname", password="testword", email="test@testmail.com"
+                data=json.dumps(
+                    dict(
+                        username="testname",
+                        password="testword",
+                        email="test@testmail.com",
+                    )
                 ),
+                content_type="application/json",
             )
 
             data = json.loads(res.data.decode())
@@ -69,11 +79,14 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/register",
-                data=dict(
-                    username="testname",
-                    password="testword",
-                    email="new_test@testmail.com",
+                data=json.dumps(
+                    dict(
+                        username="testname",
+                        password="testword",
+                        email="new_test@testmail.com",
+                    )
                 ),
+                content_type="application/json",
             )
 
             data = json.loads(res.data.decode())
@@ -93,11 +106,14 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/register",
-                data=dict(
-                    username="new_testname",
-                    password="testword",
-                    email="test@testmail.com",
+                data=json.dumps(
+                    dict(
+                        username="new_testname",
+                        password="testword",
+                        email="test@testmail.com",
+                    )
                 ),
+                content_type="application/json",
             )
 
             data = json.loads(res.data.decode())
@@ -117,7 +133,8 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/login",
-                data=dict(username="testname", password="testword"),
+                data=json.dumps(dict(username="testname", password="testword")),
+                content_type="application/json",
             )
 
             data = json.loads(res.data.decode())
@@ -133,7 +150,8 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/login",
-                data=dict(username="testname", password="testword"),
+                data=json.dumps(dict(username="testname", password="testword")),
+                content_type="application/json",
             )
 
             data = json.loads(res.data.decode())
@@ -150,7 +168,10 @@ class TestAuth(unittest.TestCase):
         with self.client:
             res = self.client.post(
                 "/auth/login",
-                data=dict(username="testname", password="incorrect_password"),
+                data=json.dumps(
+                    dict(username="testname", password="incorrect_password")
+                ),
+                content_type="application/json",
             )
 
             data = json.loads(res.data.decode())
@@ -232,7 +253,8 @@ def get_token_from_login(self):
     return json.loads(
         self.client.post(
             "/auth/login",
-            data=dict(username="testname", password="testword"),
+            data=json.dumps(dict(username="testname", password="testword")),
+            content_type="application/json",
         ).data.decode()
     )["token"]
 
