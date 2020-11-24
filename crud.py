@@ -60,7 +60,9 @@ def add_favorite(user_id, park_id):
     """Add a favorite park from park and user ID."""
 
     # Check if favorite already exists
-    is_fave = Favorite.query.filter(user_id == user_id, park_id == park_id).first()
+    is_fave = Favorite.query.filter(
+        Favorite.user_id == user_id, Favorite.park_id == park_id
+    ).first()
 
     if is_fave:
         return False
@@ -74,7 +76,9 @@ def add_favorite(user_id, park_id):
 def rm_favorite(user_id, park_id):
     """Remove a favorite park."""
 
-    fave_to_rm = Favorite.query.filter(Favorite.user_id == user_id, Favorite.park_id == park_id).first()
+    fave_to_rm = Favorite.query.filter(
+        Favorite.user_id == user_id, Favorite.park_id == park_id
+    ).first()
 
     if fave_to_rm:
         db.session.delete(fave_to_rm)
@@ -177,9 +181,50 @@ def get_items(is_rainy=False, is_winter=False):
     return items
 
 
-def get_user_items(user_id, park_id):
-    """Get item ID and checkmark status from user and park ID."""
+def get_checked_items(user_id, park_id):
+    "Get all checked items from a specific park of current user."
 
-    items = UserItem.query.filter(UserItem.user_id == user_id, UserItem.park_id == park_id).all()
+    checked_items = CheckedItem.query.filter(
+        CheckedItem.user_id == user_id, CheckedItem.park_id == park_id
+    ).all()
 
-    return [{"item_id": item.item_id, "is_checked": item.is_checked} for item in items]
+    return [checked_item.item for checked_item in checked_items]
+
+
+def check_user_item(user_id, park_id, item_id):
+    """Check an item from a specific park of current user."""
+
+    is_checked = CheckedItem.query.filter(
+        CheckedItem.user_id == user_id,
+        CheckedItem.park_id == park_id,
+        CheckedItem.item_id == item_id,
+    ).first()
+
+    if is_checked:
+        return False
+    else:
+        checked = CheckedItem(user_id=user_id, park_id=park_id, item_id=item_id)
+        db.session.add(checked)
+        db.session.commit()
+        return checked
+
+
+def uncheck_user_item(user_id, park_id, item_id):
+    """Uncheck an item from a specific part of current user (remove from DB)."""
+
+    item_to_uncheck = CheckedItem.query.filter(
+        CheckedItem.user_id == user_id,
+        CheckedItem.park_id == park_id,
+        CheckedItem.item_id == item_id,
+    ).first()
+
+    if item_to_uncheck:
+        db.session.delete(item_to_uncheck)
+        db.session.commit()
+        return True
+    else:
+        return False
+
+
+if __name__ == "__main__":
+    from app import app
