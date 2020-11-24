@@ -15,6 +15,10 @@ const App = () => {
   const [faveParks, setFaveParks] = useState([]);
 
   useEffect(() => {
+    if (auth.token) getFaves();
+  }, []);
+
+  const getFaves = () => {
     axios
       .get("/api/faves", {
         headers: {
@@ -27,7 +31,7 @@ const App = () => {
           err.response.status === 401 &&
           auth.setToken(null) /* Silently log user out. */
       );
-  }, []);
+  }
 
   return (
     <>
@@ -43,7 +47,7 @@ const App = () => {
           <LoginPage />
         </Route>
         <Route path="/park/:id">
-          <ParkPage faves={faveParks} />
+          <ParkPage faves={faveParks} getFaves={getFaves} />
         </Route>
       </Switch>
     </>

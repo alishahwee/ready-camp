@@ -217,3 +217,69 @@ def get_faves():
             "message": e
         }
         return make_response(jsonify(response)), 401
+
+
+@app.route("/api/<int:park_id>/favorite", methods=["POST"])
+def favorite(park_id):
+    """Add a park to a user's favorites."""
+
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.split()[1]
+
+    try:
+        token_valid = is_token_valid(token)
+        if token_valid:
+            new_fave = add_favorite(token_valid["user_id"], park_id)
+            if new_fave:
+                response = {
+                    "status": "success",
+                    "message": "Park successfully added to user favorites."
+                }
+                return make_response(jsonify(response)), 201
+            else:
+                return make_response("Internal server error."), 500
+        else:
+            response = {
+                "status": "fail",
+                "message": "Token is expired, invalid, or blacklisted. Please log in again."
+            }
+            return make_response(jsonify(response)), 401
+    except Exception as e:
+        response = {
+            "status": "fail", 
+            "message": e
+        }
+        return make_response(jsonify(response)), 401
+
+
+@app.route("/api/<int:park_id>/unfavorite", methods=["POST"])
+def unfavorite(park_id):
+    """Remove a park from user's favorites."""
+
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.split()[1]
+
+    try:
+        token_valid = is_token_valid(token)
+        if token_valid:
+            fave_removed = rm_favorite(token_valid["user_id"], park_id)
+            if fave_removed:
+                response = {
+                    "status": "success",
+                    "message": "Park successfully removed from user favorites."
+                }
+                return make_response(jsonify(response)), 201
+            else: 
+                return make_response("Internal server error."), 500
+        else:
+            response = {
+                "status": "fail",
+                "message": "Token is expired, invalid, or blacklisted. Please log in again."
+            }
+            return make_response(jsonify(response)), 401
+    except Exception as e:
+        response = {
+            "status": "fail", 
+            "message": e
+        }
+        return make_response(jsonify(response)), 401

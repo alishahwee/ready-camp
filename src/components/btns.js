@@ -7,7 +7,7 @@ import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { useAuth } from "../hooks/auth";
 
-const RegBtn = tw.button`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded`;
+const RegBtn = tw.button`bg-green-500 hover:bg-green-700 text-white font-medium py-1 px-2 rounded`;
 
 export const Faves = () => (
   <Link>
@@ -15,14 +15,14 @@ export const Faves = () => (
   </Link>
 );
 
-export const FaveBtn = () => (
-  <button>
+export const FaveBtn = ({ onClick }) => (
+  <button onClick={onClick}>
     <FontAwesomeIcon icon={farHeart} size="lg" tw="text-red-400" />
   </button>
 );
 
-export const UnfaveBtn = () => (
-  <button>
+export const UnfaveBtn = ({ onClick }) => (
+  <button onClick={onClick}>
     <FontAwesomeIcon icon={fasHeart} size="lg" tw="text-red-400" />
   </button>
 );
@@ -31,15 +31,16 @@ export const LogoutBtn = () => {
   const auth = useAuth();
 
   const logOut = () => {
-    auth.setToken(null);
-    axios
-      .post("/auth/logout", {
+    axios({
+        method: "POST",
+        url: "/auth/logout",
         headers: {
           Authorization: "Bearer " + auth.token,
         },
       })
       .then((res) => {
         console.log(res.data.message);
+        auth.setToken(null);
       })
       .catch(
         (err) =>

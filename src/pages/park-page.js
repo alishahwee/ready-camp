@@ -13,7 +13,7 @@ import Items from "../components/items";
 const Wrapper = tw.div`grid grid-cols-1 justify-items-center pt-16 px-4`;
 const InfoCard = tw.div`flex flex-col my-3 w-full bg-lavender-fade p-2 rounded-lg max-w-screen-lg overflow-hidden shadow`;
 
-const ParkPage = ({ faves }) => {
+const ParkPage = ({ faves, getFaves }) => {
   const { id } = useParams();
   const [activities, setActivities] = useState([]);
   const [address, setAddress] = useState("");
@@ -54,6 +54,7 @@ const ParkPage = ({ faves }) => {
             activities={activities}
             url={url}
             faves={faves}
+            getFaves={getFaves}
           />
         </InfoCard>
         <InfoCard tw="p-0">
