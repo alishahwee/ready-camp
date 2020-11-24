@@ -43,7 +43,7 @@ const App = () => {
           <LoginPage />
         </Route>
         <Route path="/park/:id">
-          <ParkPage />
+          <ParkPage faves={faveParks} />
         </Route>
       </Switch>
     </>
