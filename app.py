@@ -27,7 +27,10 @@ def homepage(path):
 def register():
     """Register a new user."""
 
-    username, password, email = request.get_json().values()
+    data = request.get_json()
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
 
     if not user_exists(username, email):
         try:
