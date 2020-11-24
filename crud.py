@@ -56,10 +56,38 @@ def get_realtime_weather(park_id):
     return response.json()
 
 
+def add_favorite(user_id, park_id):
+    """Add a favorite park from park and user ID."""
+
+    # Check if favorite already exists
+    is_fave = Favorite.query.filter(user_id == user_id, park_id == park_id).first()
+
+    if is_fave:
+        return False
+    else:
+        new_fave = Favorite(park_id=park_id, user_id=user_id)
+        db.session.add(new_fave)
+        db.session.commit()
+        return new_fave
+
+
+def rm_favorite(user_id, park_id):
+    """Remove a favorite park."""
+
+    fave_to_rm = Favorite.query.filter(Favorite.user_id == user_id, Favorite.park_id == park_id).first()
+
+    if fave_to_rm:
+        db.session.delete(fave_to_rm)
+        db.session.commit()
+        return True
+    else:
+        return False
+
+
 def get_favorites(user_id):
     """Get favorite parks from user ID."""
 
-    favorites = Favorite.query.filter_by(user_id=user_id)
+    favorites = Favorite.query.filter_by(user_id=user_id).all()
 
     return favorites
 
@@ -152,6 +180,6 @@ def get_items(is_rainy=False, is_winter=False):
 def get_user_items(user_id, park_id):
     """Get item ID and checkmark status from user and park ID."""
 
-    items = UserItem.query.filter(user_id == user_id, park_id == park_id).all()
+    items = UserItem.query.filter(UserItem.user_id == user_id, UserItem.park_id == park_id).all()
 
     return [{"item_id": item.item_id, "is_checked": item.is_checked} for item in items]
