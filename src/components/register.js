@@ -1,16 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import tw from "twin.macro";
+import axios from "axios";
+import { useAuth } from "../hooks/auth";
 
 const Form = tw.form`flex flex-col h-64 w-64`;
 
 const Register = () => {
   const { register, handleSubmit, watch, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const auth = useAuth();
+  const history = useHistory();
+  const location = useLocation();
 
-  return (
+  const [errorMsg, setErrorMsg] = useState(null);
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  const onSubmit = (data) => {
+    console.log(data);
+    axios
+      .post("/auth/register", data)
+      .then((res) => {
+        if (res.status === 201) {
+          console.log(res.data.token, res.data.message);
+          auth.setToken(res.data.token);
+          history.replace(from, { message: res.data.message });
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          setErrorMsg(err.response.data.message);
+        }
+      });
+  };
+
+  return auth.token ? (
+    <Redirect to={from, { message: "You are already logged in." }} />
+  ) : (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <h1>Register</h1>
+
+      {errorMsg && <p>{errorMsg}</p>}
 
       <label htmlFor="register-id">Username</label>
       <input
