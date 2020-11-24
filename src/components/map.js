@@ -29,8 +29,8 @@ const Map = ({ initLng, initLat, initZoom }) => {
 
     map.on("load", () => {
       console.log("Map loaded.");
-      document.querySelector(".mapboxgl-ctrl-directions").style.minWidth = "250px";
-      
+      const directionControls = document.querySelector(".mapboxgl-ctrl-directions");
+      directionControls.style.minWidth = "225px";
     });
 
     directions.on("route", () => {
