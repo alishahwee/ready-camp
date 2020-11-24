@@ -87,9 +87,9 @@ def rm_favorite(user_id, park_id):
 def get_favorites(user_id):
     """Get favorite parks from user ID."""
 
-    user = User.query.filter_by(user_id=user_id).first()
+    user = User.query.filter_by(id=user_id).first()
 
-    return [park.name for park in user.favorites]
+    return [fave.park for fave in user.favorites]
 
 
 def user_exists(username, email=None):
