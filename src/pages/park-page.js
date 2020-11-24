@@ -10,10 +10,10 @@ import Weather from "../components/weather";
 import Map from "../components/map";
 import Items from "../components/items";
 
-const Wrapper = tw.div`grid grid-cols-1 justify-items-center pt-12 px-4`;
+const Wrapper = tw.div`grid grid-cols-1 justify-items-center pt-16 px-4`;
 const InfoCard = tw.div`flex flex-col my-3 w-full bg-lavender-fade p-2 rounded-lg max-w-screen-lg overflow-hidden shadow`;
 
-const ParkPage = () => {
+const ParkPage = ({ faves }) => {
   const { id } = useParams();
   const [activities, setActivities] = useState([]);
   const [address, setAddress] = useState("");
@@ -48,10 +48,12 @@ const ParkPage = () => {
         <InfoCard tw="md:flex-row">
           <Image src={imgUrls[0]} alt={`A snapshot of ${name}`} />
           <ParkInfo
+            parkId={id}
             name={name}
             address={address}
             activities={activities}
             url={url}
+            faves={faves}
           />
         </InfoCard>
         <InfoCard tw="p-0">
