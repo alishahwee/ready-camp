@@ -23,7 +23,7 @@ class Item(db.Model):
     is_optional = db.Column(db.Boolean, nullable=False)
     category = db.Column(db.String(20), nullable=False)
 
-    # user_items = a list of UserItem objects
+    # checked_items = a list of CheckedItem objects
 
     def __repr__(self) -> str:
         return "<Item '%s'>" % self.name
@@ -43,7 +43,7 @@ class Park(db.Model):
     # images = a list of Image objects
     # activities = a list of Activity objects
     # favorites = a list of Favorite objects
-    # user_items = a list of UserItem objects
+    # checked_items = a list of CheckedItem objects
 
     @hybrid_property
     def latlon_as_list(self):
@@ -102,7 +102,7 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
 
     # favorites = a list of Favorite objects
-    # user_items = a list of UserItem objects
+    # checked_items = a list of CheckedItem objects
 
     def __repr__(self) -> str:
         return "<User '%s'>" % self.username
@@ -124,23 +124,22 @@ class Favorite(db.Model):
         return "<Favorite park_id='%i' user_id='%i'>" % (self.park_id, self.user_id)
 
 
-class UserItem(db.Model):
-    """An object representing items belonging to a User."""
+class CheckedItem(db.Model):
+    """An object representing a checked item belonging to a User."""
 
-    __tablename__ = "user_items"
+    __tablename__ = "checked_items"
 
     id = db.Column(db.Integer, primary_key=True)
     park_id = db.Column(db.Integer, db.ForeignKey("parks.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("items.id"), nullable=False)
-    is_checked = db.Column(db.Boolean)
 
-    park = db.relationship("Park", backref="user_items")
-    user = db.relationship("User", backref="user_items")
-    item = db.relationship("Item", backref="user_items")
+    park = db.relationship("Park", backref="checked_items")
+    user = db.relationship("User", backref="checked_items")
+    item = db.relationship("Item", backref="checked_items")
 
     def __repr__(self) -> str:
-        return "<UserItem park_id='%i' user_id='%i' item_id='%i'>" % (
+        return "<CheckedItem park_id='%i' user_id='%i' item_id='%i'>" % (
             self.park_id,
             self.user_id,
             self.item_id,
