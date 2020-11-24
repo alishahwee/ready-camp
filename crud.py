@@ -84,9 +84,9 @@ def register_user(username, password, email):
         db.session.commit()
 
         payload = {
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
             "iat": datetime.datetime.utcnow(),
-            "sub": new_user.id
+            "sub": new_user.id,
         }
         return jwt.encode(
             payload, getenv("SECRET_KEY"), algorithm="HS256"
@@ -102,9 +102,9 @@ def login_user(username, password):
 
     if user and check_password_hash(user.password, password):
         payload = {
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
             "iat": datetime.datetime.utcnow(),
-            "sub": user.id
+            "sub": user.id,
         }
         return jwt.encode(
             payload, getenv("SECRET_KEY"), algorithm="HS256"
@@ -131,7 +131,7 @@ def is_token_valid(token):
         if blacklisted_token:
             return False
         else:
-            return payload["sub"]
+            return {"user_id": payload["sub"]}
     except jwt.ExpiredSignatureError:
         return False
     except jwt.InvalidTokenError:
