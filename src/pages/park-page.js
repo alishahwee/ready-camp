@@ -8,6 +8,7 @@ import Image from "../components/image";
 import ParkInfo from "../components/park-info";
 import Weather from "../components/weather";
 import Map from "../components/map";
+import Items from "../components/items";
 
 const Wrapper = tw.div`grid grid-cols-1 justify-items-center pt-12 px-4`;
 const InfoCard = tw.div`flex flex-col my-3 w-full bg-lavender-fade p-2 rounded-lg max-w-screen-lg overflow-hidden shadow`;
@@ -56,6 +57,9 @@ const ParkPage = () => {
         <InfoCard tw="p-0">
           <Weather parkId={id} />
           <Map initLng={coords.lon} initLat={coords.lat} initZoom={12} />
+        </InfoCard>
+        <InfoCard>
+          <Items />
         </InfoCard>
       </Wrapper>
     </>
