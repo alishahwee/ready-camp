@@ -5,6 +5,7 @@ from data.models import connect_to_db, db, User
 from crud import blacklist_token
 import json
 import time
+from data import helpers
 
 
 class TestAuth(unittest.TestCase):
@@ -21,6 +22,11 @@ class TestAuth(unittest.TestCase):
 
         db.drop_all()
         db.create_all()
+
+        with app.app_context():
+            helpers.insert_parks("data/parks.json")
+            helpers.insert_items("data/camping-gear.csv")
+            helpers.verify_parks("data/parks.tsv")
 
     def test_registration(self):
         """Can users register an account successfully?"""
