@@ -190,3 +190,30 @@ def weather(id):
             + weather["wind_speed"]["units"],
         }
     )
+
+
+@app.route("/api/faves")
+def get_faves():
+    """Get favorite items from user ID in JWT."""
+
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.split()[1]
+
+    try:
+        token_valid = is_token_valid(token)
+        if token_valid:
+            parks = get_favorites(token_valid["user_id"])
+            response = [{"id": park.id, "name": park.name} for park in parks]
+            return make_response(jsonify(response)), 200
+        else:
+            response = {
+                "status": "fail",
+                "message": "Token is expired, invalid, or blacklisted. Please log in again."
+            }
+            return make_response(jsonify(response)), 401
+    except Exception as e:
+        response = {
+            "status": "fail", 
+            "message": e
+        }
+        return make_response(jsonify(response)), 401
