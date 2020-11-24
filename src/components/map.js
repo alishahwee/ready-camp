@@ -43,6 +43,13 @@ const Map = ({ initLng, initLat, initZoom }) => {
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
     });
+
+    map.scrollZoom.disable();
+
+    const nav = new mapboxgl.NavigationControl({
+      showCompass: false,
+    });
+    map.addControl(nav, "top-right");
   }, []);
 
   return <div ref={(el) => (mapContainer.current = el)} tw="sm:m-4 rounded" css={{"height": "400px;"}} />;
