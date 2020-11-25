@@ -4,8 +4,7 @@ import { Redirect, useHistory, useLocation } from "react-router-dom";
 import tw from "twin.macro";
 import axios from "axios";
 import { useAuth } from "../hooks/auth";
-
-const Form = tw.form`flex flex-col h-64 w-64`;
+import { Form, Input, SubmitBtn, FormLbl, Label, Error } from "./forms-style";
 
 const Register = () => {
   const { register, handleSubmit, watch, errors } = useForm();
@@ -35,80 +34,100 @@ const Register = () => {
   };
 
   return auth.token ? (
-    <Redirect to={from, { message: "You are already logged in." }} />
+    <Redirect to={(from, { message: "You are already logged in." })} />
   ) : (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Register</h1>
+      <FormLbl>Register</FormLbl>
 
-      {errorMsg && <p>{errorMsg}</p>}
+      {errorMsg && <Error>{errorMsg}</Error>}
 
-      <label htmlFor="register-id">Username</label>
-      <input
-        id="register-id"
-        name="username"
-        type="text"
-        ref={register({
-          required: true,
-          pattern: /^[a-z0-9_-]{3,15}$/i /* 3-16 chars, may include _ and - */,
-        })}
-      />
-      {errors.username?.type === "required" && <p>Your input is required.</p>}
-      {errors.username?.type === "pattern" && (
-        <p>
-          Alphanumeric string that may include _ and - having a length of 3 to
-          16 characters.
-        </p>
-      )}
+      <div tw="mb-4">
+        <Label htmlFor="register-id">Username</Label>
+        <Input
+          id="register-id"
+          name="username"
+          type="text"
+          ref={register({
+            required: true,
+            pattern: /^[a-z0-9_-]{3,15}$/i /* 3-16 chars, may include _ and - */,
+          })}
+          css={errors.username?.type === "required" && tw`border-red-500`}
+        />
+        {errors.username?.type === "required" && (
+          <Error>Your input is required.</Error>
+        )}
+        {errors.username?.type === "pattern" && (
+          <Error>
+            Alphanumeric string that may include _ and - having a length of 3 to
+            16 characters.
+          </Error>
+        )}
+      </div>
 
-      <label htmlFor="register-email">Email</label>
-      <input
-        id="register-email"
-        name="email"
-        type="email"
-        ref={register({
-          required: true,
-          pattern: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-        })}
-      />
-      {errors.email?.type === "required" && <p>Your input is required.</p>}
-      {errors.email?.type === "pattern" && <p>Please enter a valid email.</p>}
+      <div tw="mb-4">
+        <Label htmlFor="register-email">Email</Label>
+        <Input
+          id="register-email"
+          name="email"
+          type="email"
+          ref={register({
+            required: true,
+            pattern: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+          })}
+          css={errors.username?.type === "required" && tw`border-red-500`}
+        />
+        {errors.email?.type === "required" && (
+          <Error>Your input is required.</Error>
+        )}
+        {errors.email?.type === "pattern" && (
+          <Error>Please enter a valid email.</Error>
+        )}
+      </div>
 
-      <label htmlFor="register-password">Password</label>
-      <input
-        id="register-password"
-        name="password"
-        type="password"
-        ref={register({
-          required: true,
-          pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/ /* Min 8 chars, 1 upper, 1 lower, 1 num, 1 special */,
-        })}
-      />
-      {errors.password?.type === "required" && <p>Your input is required.</p>}
-      {errors.password?.type === "pattern" && (
-        <p>
-          Minimum eight characters, at least one upper case English letter, one
-          lower case English letter, one number and one special character.
-        </p>
-      )}
+      <div tw="mb-4">
+        <Label htmlFor="register-password">Password</Label>
+        <Input
+          id="register-password"
+          name="password"
+          type="password"
+          ref={register({
+            required: true,
+            pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/ /* Min 8 chars, 1 upper, 1 lower, 1 num, 1 special */,
+          })}
+          css={errors.username?.type === "required" && tw`border-red-500`}
+        />
+        {errors.password?.type === "required" && (
+          <Error>Your input is required.</Error>
+        )}
+        {errors.password?.type === "pattern" && (
+          <Error>
+            Minimum eight characters, at least one upper case English letter,
+            one lower case English letter, one number and one special character.
+          </Error>
+        )}
+      </div>
 
-      <label htmlFor="register-confirm-password">Confirm Password</label>
-      <input
-        id="register-confirm-password"
-        name="confirmPassword"
-        type="password"
-        ref={register({
-          required: true,
-          validate: (value) => value === watch("password"),
-        })}
-      />
-      {errors.confirmPassword?.type === "required" && (
-        <p>Your input is required.</p>
-      )}
-      {errors.confirmPassword?.type === "validate" && (
-        <p>Your passwords do not match.</p>
-      )}
+      <div tw="mb-6">
+        <Label htmlFor="register-confirm-password">Confirm Password</Label>
+        <Input
+          id="register-confirm-password"
+          name="confirmPassword"
+          type="password"
+          ref={register({
+            required: true,
+            validate: (value) => value === watch("password"),
+          })}
+          css={errors.username?.type === "required" && tw`border-red-500`}
+        />
+        {errors.confirmPassword?.type === "required" && (
+          <Error>Your input is required.</Error>
+        )}
+        {errors.confirmPassword?.type === "validate" && (
+          <Error>Your passwords do not match.</Error>
+        )}
+      </div>
 
-      <input type="submit" />
+      <SubmitBtn>Submit</SubmitBtn>
     </Form>
   );
 };

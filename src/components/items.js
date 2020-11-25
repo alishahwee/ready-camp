@@ -41,7 +41,8 @@ const Items = ({ parkId }) => {
   };
 
   const updateUserItemDb = (e) => {
-    e.target.checked ? checkItem(e.target.id) : uncheckItem(e.target.id);
+    auth.token &&
+      (e.target.checked ? checkItem(e.target.id) : uncheckItem(e.target.id));
   };
 
   const checkItem = (eId) => {

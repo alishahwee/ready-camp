@@ -1,10 +1,8 @@
 import React from "react";
 import Helmet from "react-helmet";
-import tw from "twin.macro";
 import Header from "../components/header";
 import Register from "../components/register";
-
-const Wrapper = tw.div`flex justify-center items-center h-screen`;
+import { Wrapper } from "./login-page";
 
 const RegisterPage = () => (
   <>

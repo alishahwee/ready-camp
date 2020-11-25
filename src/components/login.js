@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect, useHistory, useLocation, Link } from "react-router-dom";
-import tw from "twin.macro";
+import {
+  Redirect,
+  useHistory,
+  useLocation,
+  Link,
+  withRouter,
+} from "react-router-dom";
 import axios from "axios";
+import tw from "twin.macro";
 import { useAuth } from "../hooks/auth";
-
-const Form = tw.form`flex flex-col h-48`;
+import { Form, Input, SubmitBtn, FormLbl, Label, Error } from "./forms-style";
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -35,35 +40,51 @@ const Login = () => {
   };
 
   return auth.token ? (
-    <Redirect to={from, { message: "You are already logged in." }} />
+    <Redirect to={(from, { message: "You are already logged in." })} />
   ) : (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Login</h1>
+      <FormLbl>Log In</FormLbl>
 
-      {errorMsg && <p>{errorMsg}</p>}
+      {errorMsg && <Error>{errorMsg}</Error>}
+      <div tw="mb-4">
+        <Label htmlFor="register-id">Username</Label>
+        <Input
+          id="register-id"
+          name="username"
+          type="text"
+          ref={register({ required: true })}
+          css={errors.username?.type === "required" && tw`border-red-500`}
+        />
+        {errors.username?.type === "required" && (
+          <Error>Your input is required.</Error>
+        )}
+      </div>
 
-      <label htmlFor="register-id">Username</label>
-      <input
-        id="register-id"
-        name="username"
-        type="text"
-        ref={register({ required: true })}
-      />
-      {errors.username?.type === "required" && <p>Your input is required.</p>}
+      <div tw="mb-6">
+        <Label htmlFor="register-password">Password</Label>
+        <Input
+          id="register-password"
+          name="password"
+          type="password"
+          ref={register({ required: true })}
+          css={errors.username?.type === "required" && tw`border-red-500`}
+        />
+        {errors.password?.type === "required" && (
+          <Error>Your input is required.</Error>
+        )}
+      </div>
 
-      <label htmlFor="register-password">Password</label>
-      <input
-        id="register-password"
-        name="password"
-        type="password"
-        ref={register({ required: true })}
-      />
-      {errors.password?.type === "required" && <p>Your input is required.</p>}
-
-      <input type="submit" />
-      <Link to="/register">Register Account</Link>
+      <div tw="flex items-center justify-between">
+        <SubmitBtn>Submit</SubmitBtn>
+        <Link
+          to="/register"
+          tw="inline-block align-baseline font-bold text-sm text-orange-500 hover:text-orange-800"
+        >
+          Register Account
+        </Link>
+      </div>
     </Form>
   );
 };
 
-export default Login;
+export default withRouter(Login);
