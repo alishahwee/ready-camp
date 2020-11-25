@@ -6,6 +6,8 @@ import Homepage from "./pages/homepage";
 import RegisterPage from "./pages/register-page";
 import LoginPage from "./pages/login-page";
 import ParkPage from "./pages/park-page";
+import FavoritesPage from "./pages/favorites-page";
+import PrivateRoute from "./utils/private-route";
 import { GlobalStyles } from "twin.macro";
 import "fontsource-pattaya";
 import "fontsource-poppins";
@@ -16,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     if (auth.token) getFaves();
-  }, []);
+  }, [auth.token]);
 
   const getFaves = () => {
     axios
@@ -49,6 +51,9 @@ const App = () => {
         <Route path="/park/:id">
           <ParkPage faves={faveParks} getFaves={getFaves} />
         </Route>
+        <PrivateRoute path="/parks/favorites">
+          <FavoritesPage faves={faveParks} />
+        </PrivateRoute>
       </Switch>
     </>
   );
