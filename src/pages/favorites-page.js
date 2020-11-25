@@ -11,6 +11,9 @@ const FavoritesPage = ({ faves }) => (
     </Helmet>
     <Header />
     <Wrapper>
+      {faves.length == 0 && (
+        <p>Oh no! You don't have any favorite parks yet.</p>
+      )}
       {faves.map((park) => (
         <FaveCard parkId={park.id} name={park.name} imgUrl={park.image} />
       ))}
