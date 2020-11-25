@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import tw from "twin.macro";
 import { useAuth } from "../hooks/auth";
-const Wrapper = tw.div``;
+
+const Wrapper = tw.div`flex flex-wrap mb-3 p-2 last:mb-0 bg-white rounded`;
+const H2 = tw.h2`mb-1 text-yellow-800 text-xl font-medium w-full`;
+const H3 = tw.h3`mb-1 w-full`;
+const Label = tw.label`text-gray-700`;
+const LoginMsg = tw.p`text-green-500 text-xs italic`;
+const InputGrp = tw.div`w-full sm:w-1/2 lg:w-1/3`;
 
 const Items = ({ parkId }) => {
   const auth = useAuth();
@@ -95,56 +102,66 @@ const Items = ({ parkId }) => {
       );
   };
 
-  return checkedItems
-    ? Object.keys(categories).map((category) => (
-        <Wrapper key={`item-wrapper-${category}`}>
-          <p key={`category-${category}`}>{category}</p>
-          {Object.values(categories[category]).map((item) => {
-            const shouldCheck = () => {
-              for (const checkedItem of checkedItems) {
-                if (checkedItem.id == item.id) {
-                  return true;
-                }
-              }
-              return false;
-            };
+  return (
+    <div tw="p-2">
+      <H2>Camping Checklist</H2>
+      {auth.token ? null : (
+        <Link to="/login">
+          <LoginMsg>Log in to save your checkmarks!</LoginMsg>
+        </Link>
+      )}
+      {checkedItems
+        ? Object.keys(categories).map((category) => (
+            <Wrapper key={`item-wrapper-${category}`}>
+              <H3 key={`category-${category}`}>{category}</H3>
+              {Object.values(categories[category]).map((item) => {
+                const shouldCheck = () => {
+                  for (const checkedItem of checkedItems) {
+                    if (checkedItem.id == item.id) {
+                      return true;
+                    }
+                  }
+                  return false;
+                };
 
-            return (
-              <div key={`item-input-group-${item.id}`}>
-                <input
-                  type="checkbox"
-                  id={`item-${item.id}`}
-                  key={`checkbox-${item.id}`}
-                  onChange={updateUserItemDb}
-                  defaultChecked={shouldCheck()}
-                />
-                <label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
-                  {item.name}
-                </label>
-              </div>
-            );
-          })}
-        </Wrapper>
-      ))
-    : auth.token ||
-        Object.keys(categories).map((category) => (
-          <Wrapper key={`item-wrapper-${category}`}>
-            <p key={`category-${category}`}>{category}</p>
-            {Object.values(categories[category]).map((item) => (
-              <div key={`item-input-group-${item.id}`}>
-                <input
-                  type="checkbox"
-                  id={`item-${item.id}`}
-                  key={`checkbox-${item.id}`}
-                  onChange={updateUserItemDb}
-                />
-                <label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
-                  {item.name}
-                </label>
-              </div>
-            ))}
-          </Wrapper>
-        ));
+                return (
+                  <InputGrp key={`item-input-group-${item.id}`}>
+                    <input
+                      type="checkbox"
+                      id={`item-${item.id}`}
+                      key={`checkbox-${item.id}`}
+                      onChange={updateUserItemDb}
+                      defaultChecked={shouldCheck()}
+                    />{" "}
+                    <Label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
+                      {item.name}
+                    </Label>
+                  </InputGrp>
+                );
+              })}
+            </Wrapper>
+          ))
+        : auth.token ||
+          Object.keys(categories).map((category) => (
+            <Wrapper key={`item-wrapper-${category}`}>
+              <H3 key={`category-${category}`}>{category}</H3>
+              {Object.values(categories[category]).map((item) => (
+                <InputGrp key={`item-input-group-${item.id}`}>
+                  <input
+                    type="checkbox"
+                    id={`item-${item.id}`}
+                    key={`checkbox-${item.id}`}
+                    onChange={updateUserItemDb}
+                  />{" "}
+                  <Label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
+                    {item.name}
+                  </Label>
+                </InputGrp>
+              ))}
+            </Wrapper>
+          ))}
+    </div>
+  );
 };
 
 export default Items;
