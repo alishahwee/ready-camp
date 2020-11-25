@@ -74,14 +74,11 @@ def login():
         else:
             response = {
                 "status": "fail",
-                "message": "Password is incorrect. Please try again."
+                "message": "Password is incorrect. Please try again.",
             }
             return make_response(jsonify(response)), 403
     else:
-        response = {
-            "status": "fail",
-            "message": "Username does not exist."
-        }
+        response = {"status": "fail", "message": "Username does not exist."}
         return make_response(jsonify(response)), 403
 
 
@@ -96,24 +93,17 @@ def logout():
         token_valid = is_token_valid(token)
         if token_valid:
             blacklist_token(token)
-            response = {
-                "status": "success",
-                "message": "User successfully logged out."
-            }
+            response = {"status": "success", "message": "User successfully logged out."}
             return make_response(jsonify(response)), 200
         else:
             response = {
                 "status": "fail",
-                "message": "Token is expired, invalid, or blacklisted. Please log in again."
+                "message": "Token is expired, invalid, or blacklisted. Please log in again.",
             }
             return make_response(jsonify(response)), 401
     except Exception as e:
-        response = {
-            "status": "fail", 
-            "message": e
-        }
+        response = {"status": "fail", "message": e}
         return make_response(jsonify(response)), 401
-
 
 
 @app.route("/api/parks")
@@ -139,7 +129,7 @@ def items():
         else:
             item_dict[item.category].append({"id": item.id, "name": item.name})
 
-    return jsonify(item_dict)        
+    return jsonify(item_dict)
 
 
 @app.route("/api/park/<int:id>")
@@ -208,14 +198,11 @@ def get_faves():
         else:
             response = {
                 "status": "fail",
-                "message": "Token is expired, invalid, or blacklisted. Please log in again."
+                "message": "Token is expired, invalid, or blacklisted. Please log in again.",
             }
             return make_response(jsonify(response)), 401
     except Exception as e:
-        response = {
-            "status": "fail", 
-            "message": e
-        }
+        response = {"status": "fail", "message": e}
         return make_response(jsonify(response)), 401
 
 
@@ -233,7 +220,7 @@ def favorite(park_id):
             if new_fave:
                 response = {
                     "status": "success",
-                    "message": "Park successfully added to user favorites."
+                    "message": "Park successfully added to user favorites.",
                 }
                 return make_response(jsonify(response)), 201
             else:
@@ -241,14 +228,11 @@ def favorite(park_id):
         else:
             response = {
                 "status": "fail",
-                "message": "Token is expired, invalid, or blacklisted. Please log in again."
+                "message": "Token is expired, invalid, or blacklisted. Please log in again.",
             }
             return make_response(jsonify(response)), 401
     except Exception as e:
-        response = {
-            "status": "fail", 
-            "message": e
-        }
+        response = {"status": "fail", "message": e}
         return make_response(jsonify(response)), 401
 
 
@@ -266,20 +250,107 @@ def unfavorite(park_id):
             if fave_removed:
                 response = {
                     "status": "success",
-                    "message": "Park successfully removed from user favorites."
+                    "message": "Park successfully removed from user favorites.",
                 }
                 return make_response(jsonify(response)), 201
-            else: 
+            else:
                 return make_response("Internal server error."), 500
         else:
             response = {
                 "status": "fail",
-                "message": "Token is expired, invalid, or blacklisted. Please log in again."
+                "message": "Token is expired, invalid, or blacklisted. Please log in again.",
             }
             return make_response(jsonify(response)), 401
     except Exception as e:
-        response = {
-            "status": "fail", 
-            "message": e
-        }
+        response = {"status": "fail", "message": e}
+        return make_response(jsonify(response)), 401
+
+
+@app.route("/api/checked")
+def get_checked_items():
+    """Get all the checked items from user ID (JWT) and park ID (query)."""
+
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.split()[1]
+
+    park_id = request.args.get("park_id")
+
+    try:
+        token_valid = is_token_valid(token)
+        if token_valid:
+            items = get_checked_items(token_valid["user_id"], park_id)
+            response = [{"id": item.id, "name": item.name} for item in items]
+            return make_response(jsonify(response)), 200
+        else:
+            response = {
+                "status": "fail",
+                "message": "Token is expired, invalid, or blacklisted. Please log in again.",
+            }
+            return make_response(jsonify(response)), 401
+    except Exception as e:
+        response = {"status": "fail", "message": e}
+        return make_response(jsonify(response)), 401
+
+
+@app.route("/api/<int:park_id>/check", methods=["POST"])
+def check_item(park_id):
+    """Add a park-specific item to a user's checked items."""
+
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.split()[1]
+
+    item_id = request.get_json().get("item_id")
+
+    try:
+        token_valid = is_token_valid(token)
+        if token_valid:
+            checked_item = check_user_item(token_valid["user_id"], park_id, item_id)
+            if checked_item:
+                response = {
+                    "status": "success",
+                    "message": f"{checked_item.item.name} successfully checked.",
+                }
+                return make_response(jsonify(response)), 201
+            else:
+                return make_response("Internal server error."), 500
+        else:
+            response = {
+                "status": "fail",
+                "message": "Token is expired, invalid, or blacklisted. Please log in again.",
+            }
+            return make_response(jsonify(response)), 401
+    except Exception as e:
+        response = {"status": "fail", "message": e}
+        return make_response(jsonify(response)), 401
+
+
+@app.route("/api/<int:park_id>/uncheck", methods=["DELETE"])
+def uncheck_item(park_id):
+    """Remove a park-specific item from a user's checked items."""
+
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.split()[1]
+
+    item_id = request.get_json().get("item_id")
+
+    try:
+        token_valid = is_token_valid(token)
+        if token_valid:
+            unchecked_item = uncheck_user_item(token_valid["user_id"], park_id, item_id)
+            if unchecked_item:
+                response = {
+                    "status": "success",
+                    "message": "Item successfully unchecked.",
+                }
+                return make_response(jsonify(response)), 201
+            else:
+                return make_response("Internal server error."), 500
+        else:
+            response = {
+                "status": "fail",
+                "message": "Token is expired, invalid, or blacklisted. Please log in again.",
+            }
+            return make_response(jsonify(response)), 401
+    except Exception as e:
+        response = {"status": "fail", "message": e}
         return make_response(jsonify(response)), 401
