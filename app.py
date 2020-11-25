@@ -267,7 +267,7 @@ def unfavorite(park_id):
 
 
 @app.route("/api/checked")
-def get_checked_items():
+def checked_items():
     """Get all the checked items from user ID (JWT) and park ID (query)."""
 
     auth_header = request.headers.get("Authorization")
@@ -312,7 +312,7 @@ def check_item(park_id):
                 }
                 return make_response(jsonify(response)), 201
             else:
-                return make_response("Internal server error."), 500
+                return make_response("Item already checked."), 204
         else:
             response = {
                 "status": "fail",
@@ -344,7 +344,7 @@ def uncheck_item(park_id):
                 }
                 return make_response(jsonify(response)), 201
             else:
-                return make_response("Internal server error."), 500
+                return make_response("Item already unchecked."), 500
         else:
             response = {
                 "status": "fail",
