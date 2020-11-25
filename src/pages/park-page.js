@@ -62,7 +62,7 @@ const ParkPage = ({ faves, getFaves }) => {
           <Map initLng={coords.lon} initLat={coords.lat} initZoom={12} />
         </InfoCard>
         <InfoCard>
-          <Items />
+          <Items parkId={id} />
         </InfoCard>
       </Wrapper>
     </>
