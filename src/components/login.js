@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation, Link } from "react-router-dom";
 import tw from "twin.macro";
 import axios from "axios";
 import { useAuth } from "../hooks/auth";
@@ -61,6 +61,7 @@ const Login = () => {
       {errors.password?.type === "required" && <p>Your input is required.</p>}
 
       <input type="submit" />
+      <Link to="/register">Register Account</Link>
     </Form>
   );
 };
