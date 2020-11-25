@@ -29,7 +29,7 @@ const Weather = ({ parkId }) => {
 
 const Current = ({ icon, description, temp, windSpeed }) => (
   <>
-    <h1 tw="font-body text-xl text-steal-teal">Current Weather</h1>
+    <h1 tw="font-body text-xl text-yellow-800">Current Weather</h1>
     <MainView>
       <div
         tw="h-20 w-20 row-span-2 col-span-1"
