@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import tw from "twin.macro";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
@@ -29,6 +30,7 @@ export const UnfaveBtn = ({ onClick }) => (
 
 export const LogoutBtn = () => {
   const auth = useAuth();
+  const history = useHistory();
 
   const logOut = () => {
     axios({
@@ -41,6 +43,7 @@ export const LogoutBtn = () => {
       .then((res) => {
         console.log(res.data.message);
         auth.setToken(null);
+        history.push("/");
       })
       .catch(
         (err) =>
