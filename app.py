@@ -193,7 +193,10 @@ def get_faves():
         token_valid = is_token_valid(token)
         if token_valid:
             parks = get_favorites(token_valid["user_id"])
-            response = [{"id": park.id, "name": park.name} for park in parks]
+            response = [
+                {"id": park.id, "name": park.name, "image": park.images[0].url}
+                for park in parks
+            ]
             return make_response(jsonify(response)), 200
         else:
             response = {
