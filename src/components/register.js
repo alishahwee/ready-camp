@@ -13,7 +13,7 @@ const Register = () => {
   const location = useLocation();
 
   const [errorMsg, setErrorMsg] = useState(null);
-  const { from } = location.state || { from: { pathname: "/" } };
+  const { from } = location.state || { from: { pathname: "/favorites" } };
 
   const onSubmit = (data) => {
     console.log(data);
