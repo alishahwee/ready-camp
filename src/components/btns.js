@@ -11,7 +11,7 @@ import { useAuth } from "../hooks/auth";
 const RegBtn = tw.button`bg-green-500 hover:bg-green-700 text-white font-medium py-1 px-2 rounded`;
 
 export const Faves = () => (
-  <Link>
+  <Link to="/parks/favorites">
     <FontAwesomeIcon icon={fasHeart} size="lg" tw="text-red-400 mx-2" />
   </Link>
 );
