@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import tw from "twin.macro";
-import { useAuth } from "../hooks/auth";
-import { LoginBtn, LogoutBtn, Faves } from "./btns";
 
 const Form = tw.form`w-full max-w-sm`;
 const Input = tw.input`container mx-auto h-12 rounded-md p-4 mb-4`;
 
 const SearchBar = () => {
-  const auth = useAuth();
   const history = useHistory();
 
   const [park, setPark] = useState({ id: undefined, name: "" });
@@ -55,14 +52,6 @@ const SearchBar = () => {
       />
       <datalist id="parks">{dataOptions}</datalist>
       <input tw="sr-only" type="submit" />
-      {auth.token ? (
-        <>
-          <Faves />
-          <LogoutBtn />
-        </>
-      ) : (
-        <LoginBtn />
-      )}
     </Form>
   );
 };
