@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import tw from "twin.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../hooks/auth";
 
-const Wrapper = tw.div`flex flex-wrap mb-3 p-2 last:mb-0 bg-white rounded`;
+const Wrapper = tw.div`mb-3 p-2 last:mb-0 bg-white rounded`;
 const H2 = tw.h2`mb-1 text-yellow-800 text-xl font-medium w-full`;
 const H3 = tw.h3`mb-1 w-full`;
 const Label = tw.label`text-gray-700`;
@@ -138,10 +140,18 @@ const ItemGrp = ({ category, items, checkedItems, updateUserItemDb }) => {
 
   return (
     <Wrapper>
-      <H3 key={`category-${category}`} onClick={toggleItems}>
-        {category}
-      </H3>
-      <div css={{ "display": showItems ? "block;" : "none;" }}>
+      <div tw="flex justify-between items-center cursor-pointer" onClick={toggleItems}>
+        <H3 key={`category-${category}`}>{category}</H3>
+        {showItems ? (
+          <FontAwesomeIcon icon={faMinus} />
+        ) : (
+          <FontAwesomeIcon icon={faPlus} />
+        )}
+      </div>
+      <div
+        tw="flex flex-wrap w-full"
+        css={{ display: showItems ? "flex;" : "none;" }}
+      >
         {items.map((item) => (
           <InputGrp key={`item-input-group-${item.id}`}>
             <input
