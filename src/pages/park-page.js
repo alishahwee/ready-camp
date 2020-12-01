@@ -39,7 +39,7 @@ const ParkPage = ({ faves, getFaves }) => {
   }, []);
 
   return dataLoaded ? (
-    <>
+    <div tw="pb-8">
       <Header />
       <Wrapper>
         <Helmet>
@@ -65,7 +65,7 @@ const ParkPage = ({ faves, getFaves }) => {
           <Items parkId={id} />
         </InfoCard>
       </Wrapper>
-    </>
+    </div>
   ) : (
     <Wrapper tw="items-center h-screen">
       <Loading />
