@@ -26,15 +26,17 @@ const Homepage = () => {
       <p css={pStyle}>
         An all-in-one camping planner for Minnesota state parks
       </p>
-      <SearchBar />
-      {auth.token ? (
-        <div tw="flex items-center">
-          <Faves />
-          <LogoutBtn />
-        </div>
-      ) : (
-        <LoginBtn />
-      )}
+      <div tw="p-2 bg-gray-800 bg-opacity-75 rounded-lg w-full max-w-sm">
+        <SearchBar />
+        {auth.token ? (
+          <div tw="flex items-center justify-center justify-between w-full">
+            <Faves />
+            <LogoutBtn />
+          </div>
+        ) : (
+          <LoginBtn />
+        )}
+      </div>
     </Wrapper>
   );
 };
