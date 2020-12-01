@@ -57,7 +57,7 @@ const ParkPage = ({ faves, getFaves }) => {
             getFaves={getFaves}
           />
         </InfoCard>
-        <InfoCard tw="p-0">
+        <InfoCard tw="p-0 md:flex-row">
           <Weather parkId={id} />
           <Map initLng={coords.lon} initLat={coords.lat} initZoom={12} />
         </InfoCard>

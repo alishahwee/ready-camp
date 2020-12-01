@@ -52,7 +52,7 @@ const Map = ({ initLng, initLat, initZoom }) => {
     map.addControl(nav, "top-right");
   }, []);
 
-  return <div ref={(el) => (mapContainer.current = el)} tw="sm:m-4 rounded" css={{"height": "400px;"}} />;
+  return <div ref={(el) => (mapContainer.current = el)} tw="sm:m-4 rounded md:w-full" css={{"height": "400px;"}} />;
 };
 
 export default Map;

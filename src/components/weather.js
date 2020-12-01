@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 
-const Wrapper = tw.div`self-center p-4`;
+const Wrapper = tw.div`self-center p-4 w-full md:w-1/2`;
 const MainView = tw.div`grid grid-flow-row grid-rows-2 grid-cols-2 gap-2 p-4 rounded-lg bg-white place-items-center`;
 
 const Weather = ({ parkId }) => {
@@ -35,7 +35,7 @@ const Current = ({ icon, description, temp, windSpeed }) => (
         tw="h-20 w-20 row-span-2 col-span-1"
         dangerouslySetInnerHTML={{ __html: icon }}
       />
-      <p tw="text-4xl md:text-5xl row-span-2 col-span-1">{temp}</p>
+      <p tw="text-4xl lg:text-5xl row-span-2 col-span-1">{temp}</p>
       <p tw="row-span-1 col-span-1 uppercase text-center text-gray-700 tracking-wide text-sm">
         {description}
       </p>
