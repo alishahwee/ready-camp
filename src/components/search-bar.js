@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const Form = tw.form`flex items-center w-full mb-2`;
-const Input = tw.input`container mx-auto h-12 rounded-md p-4 mr-2`;
+const Input = tw.input`container h-12 rounded-md p-4 mr-2 w-60 sm:w-full`;
 
 const SearchBar = () => {
   const history = useHistory();
