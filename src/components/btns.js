@@ -12,19 +12,31 @@ const RegBtn = tw.button`bg-yellow-400 hover:bg-yellow-600 text-white font-mediu
 
 export const Faves = () => (
   <Link to="/parks/favorites">
-    <FontAwesomeIcon icon={fasHeart} size="lg" tw="text-red-400 mx-2" />
+    <FontAwesomeIcon
+      icon={fasHeart}
+      size="lg"
+      tw="text-red-400 hover:text-red-500 mx-2"
+    />
   </Link>
 );
 
 export const FaveBtn = ({ onClick }) => (
   <button onClick={onClick}>
-    <FontAwesomeIcon icon={farHeart} size="lg" tw="text-red-400" />
+    <FontAwesomeIcon
+      icon={farHeart}
+      size="lg"
+      tw="text-red-400 hover:text-red-500"
+    />
   </button>
 );
 
 export const UnfaveBtn = ({ onClick }) => (
   <button onClick={onClick}>
-    <FontAwesomeIcon icon={fasHeart} size="lg" tw="text-red-400" />
+    <FontAwesomeIcon
+      icon={fasHeart}
+      size="lg"
+      tw="text-red-400 hover:text-red-500"
+    />
   </button>
 );
 
@@ -34,12 +46,12 @@ export const LogoutBtn = () => {
 
   const logOut = () => {
     axios({
-        method: "POST",
-        url: "/auth/logout",
-        headers: {
-          Authorization: "Bearer " + auth.token,
-        },
-      })
+      method: "POST",
+      url: "/auth/logout",
+      headers: {
+        Authorization: "Bearer " + auth.token,
+      },
+    })
       .then((res) => {
         console.log(res.data.message);
         auth.setToken(null);
