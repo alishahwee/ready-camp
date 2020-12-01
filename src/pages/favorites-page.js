@@ -21,7 +21,12 @@ const FavoritesPage = ({ faves }) => (
           <p>Oh no! You don't have any favorite parks yet.</p>
         )}
         {faves.map((park) => (
-          <FaveCard parkId={park.id} name={park.name} imgUrl={park.image} />
+          <FaveCard
+            key={`park-${park.id}`}
+            parkId={park.id}
+            name={park.name}
+            imgUrl={park.image}
+          />
         ))}
       </Wrapper>
     </div>
