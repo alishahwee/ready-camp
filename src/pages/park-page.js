@@ -10,7 +10,7 @@ import Weather from "../components/weather";
 import Map from "../components/map";
 import Items from "../components/items";
 
-export const Wrapper = tw.div`grid grid-cols-1 justify-items-center pt-16 px-4`;
+const Wrapper = tw.div`grid grid-cols-1 justify-items-center pt-16 px-4`;
 const InfoCard = tw.div`flex flex-col my-3 w-full bg-lavender-fade p-2 rounded-lg max-w-screen-lg overflow-hidden shadow`;
 
 const ParkPage = ({ faves, getFaves }) => {
