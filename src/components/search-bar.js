@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import tw from "twin.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-const Form = tw.form`w-full mb-2`;
-const Input = tw.input`container mx-auto h-12 rounded-md p-4`;
+const Form = tw.form`flex items-center w-full mb-2`;
+const Input = tw.input`container mx-auto h-12 rounded-md p-4 mr-2`;
 
 const SearchBar = () => {
   const history = useHistory();
@@ -51,7 +53,9 @@ const SearchBar = () => {
         onChange={handleChange}
       />
       <datalist id="parks">{dataOptions}</datalist>
-      <input tw="sr-only" type="submit" />
+      <button tw="rounded-full bg-green-400 hover:bg-green-500 w-10 h-10 flex-none">
+        <FontAwesomeIcon tw="text-white" icon={faChevronRight} />
+      </button>
     </Form>
   );
 };
