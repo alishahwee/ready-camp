@@ -137,9 +137,11 @@ const ItemGrp = ({ category, items, checkedItems, updateUserItemDb }) => {
   };
 
   return (
-    <>
-      <H3 key={`category-${category}`}>{category}</H3>
-      <div>
+    <Wrapper>
+      <H3 key={`category-${category}`} onClick={toggleItems}>
+        {category}
+      </H3>
+      <div css={{ "display": showItems ? "block;" : "none;" }}>
         {items.map((item) => (
           <InputGrp key={`item-input-group-${item.id}`}>
             <input
@@ -155,7 +157,7 @@ const ItemGrp = ({ category, items, checkedItems, updateUserItemDb }) => {
           </InputGrp>
         ))}
       </div>
-    </>
+    </Wrapper>
   );
 };
 
