@@ -109,7 +109,7 @@ const Items = ({ parkId }) => {
       <H2>Camping Checklist</H2>
       {auth.token ? null : (
         <Link to="/login">
-          <LoginMsg>Log in to save your checkmarks!</LoginMsg>
+          <LoginMsg>Log in first to save your checkmarks!</LoginMsg>
         </Link>
       )}
       {Object.keys(categories).map((category) => (
