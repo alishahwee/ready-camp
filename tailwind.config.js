@@ -10,8 +10,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        display: ["Pattaya", "sans-serif"],
         body: ["Poppins", "sans-serif"],
+        display: ["Pattaya", "sans-serif"],
       },
       colors: {
         "maximum-yellow-red": "#ffcb69",

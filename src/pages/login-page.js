@@ -6,7 +6,7 @@ import Login from "../components/login";
 import bgRegisterLogin from "../assets/bgRegisterLogin.jpg";
 
 export const Wrapper = styled.div`
-  ${tw`flex justify-center items-center h-screen bg-cover bg-center p-4 pt-16 bg-yellow-100`}
+  ${tw`flex justify-center items-center h-screen bg-cover bg-center p-4 pt-16 bg-yellow-100 font-body`}
   background-image: url(${bgRegisterLogin});
 `;
 

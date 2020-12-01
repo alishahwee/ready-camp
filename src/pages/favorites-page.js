@@ -7,7 +7,7 @@ import FaveCard from "../components/fave-card";
 const Wrapper = tw.div`flex flex-wrap justify-center`;
 
 const FavoritesPage = ({ faves }) => (
-  <div tw="flex flex-col items-center">
+  <div tw="flex flex-col items-center font-body">
     <Helmet>
       <title>Favorite Parks</title>
     </Helmet>

@@ -8,7 +8,7 @@ import { LoginBtn, LogoutBtn, Faves } from "../components/btns";
 import { useAuth } from "../hooks/auth";
 
 const Wrapper = styled.div`
-  ${tw`flex flex-col justify-center items-center h-screen p-4 text-center bg-cover bg-center pb-32 sm:pb-4`}
+  ${tw`flex flex-col justify-center items-center h-screen p-4 font-body text-center bg-cover bg-center pb-32 sm:pb-4`}
   background-image: url(${bgHomepage});
 `;
 
@@ -26,7 +26,7 @@ const Homepage = () => {
       <p css={pStyle}>
         An all-in-one camping planner for Minnesota state parks
       </p>
-      <div tw="p-2 bg-gray-800 bg-opacity-75 rounded-lg w-full max-w-sm">
+      <div tw="p-2 bg-gray-800 bg-opacity-75 rounded-lg w-full max-w-md">
         <SearchBar />
         {auth.token ? (
           <div tw="flex items-center justify-center justify-between w-full">
