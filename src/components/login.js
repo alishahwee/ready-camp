@@ -78,7 +78,7 @@ const Login = () => {
         <SubmitBtn>Submit</SubmitBtn>
         <Link
           to="/register"
-          tw="inline-block align-baseline font-bold text-sm text-orange-500 hover:text-orange-800"
+          tw="inline-block align-baseline font-bold text-sm text-yellow-500 hover:text-yellow-800"
         >
           Register Account
         </Link>

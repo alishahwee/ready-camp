@@ -6,7 +6,7 @@ import { FaveBtn, UnfaveBtn } from "./btns";
 
 const H1 = tw.h1`font-body text-2xl text-yellow-800 font-semibold mr-2`;
 const P = tw.p`font-body text-lg`;
-const A = tw.a`inline-block align-baseline font-bold text-sm text-orange-500 hover:text-orange-800`;
+const A = tw.a`inline-block align-baseline font-bold text-sm text-yellow-500 hover:text-yellow-800`;
 
 const ParkInfo = ({
   parkId,

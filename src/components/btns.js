@@ -8,7 +8,7 @@ import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { useAuth } from "../hooks/auth";
 
-const RegBtn = tw.button`bg-orange-400 hover:bg-orange-600 text-white font-medium py-1 px-3 rounded`;
+const RegBtn = tw.button`bg-yellow-400 hover:bg-yellow-600 text-white font-medium py-1 px-3 rounded`;
 
 export const Faves = () => (
   <Link to="/parks/favorites">
