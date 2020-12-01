@@ -110,57 +110,52 @@ const Items = ({ parkId }) => {
           <LoginMsg>Log in to save your checkmarks!</LoginMsg>
         </Link>
       )}
-      {checkedItems
-        ? Object.keys(categories).map((category) => (
-            <Wrapper key={`item-wrapper-${category}`}>
-              <H3 key={`category-${category}`}>{category}</H3>
-              {Object.values(categories[category]).map((item) => {
-                const shouldCheck = () => {
-                  for (const checkedItem of checkedItems) {
-                    if (checkedItem.id == item.id) {
-                      return true;
-                    }
-                  }
-                  return false;
-                };
-
-                return (
-                  <InputGrp key={`item-input-group-${item.id}`}>
-                    <input
-                      type="checkbox"
-                      id={`item-${item.id}`}
-                      key={`checkbox-${item.id}`}
-                      onChange={updateUserItemDb}
-                      defaultChecked={shouldCheck()}
-                    />{" "}
-                    <Label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
-                      {item.name}
-                    </Label>
-                  </InputGrp>
-                );
-              })}
-            </Wrapper>
-          ))
-        : auth.token ||
-          Object.keys(categories).map((category) => (
-            <Wrapper key={`item-wrapper-${category}`}>
-              <H3 key={`category-${category}`}>{category}</H3>
-              {Object.values(categories[category]).map((item) => (
-                <InputGrp key={`item-input-group-${item.id}`}>
-                  <input
-                    type="checkbox"
-                    id={`item-${item.id}`}
-                    key={`checkbox-${item.id}`}
-                    onChange={updateUserItemDb}
-                  />{" "}
-                  <Label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
-                    {item.name}
-                  </Label>
-                </InputGrp>
-              ))}
-            </Wrapper>
-          ))}
+      {Object.keys(categories).map((category) => (
+        <ItemGrp
+          key={`item-group-${category}`}
+          category={category}
+          items={categories[category]}
+          checkedItems={checkedItems}
+          updateUserItemDb={updateUserItemDb}
+        />
+      ))}
     </div>
+  );
+};
+
+const ItemGrp = ({ category, items, checkedItems, updateUserItemDb }) => {
+  const [showItems, setShowItems] = useState(false);
+
+  const toggleItems = () => setShowItems(!showItems);
+  const shouldCheck = (item) => {
+    for (const checkedItem of checkedItems) {
+      if (checkedItem.id == item.id) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  return (
+    <>
+      <H3 key={`category-${category}`}>{category}</H3>
+      <div>
+        {items.map((item) => (
+          <InputGrp key={`item-input-group-${item.id}`}>
+            <input
+              type="checkbox"
+              id={`item-${item.id}`}
+              key={`checkbox-${item.id}`}
+              onChange={updateUserItemDb}
+              defaultChecked={checkedItems && shouldCheck(item)}
+            />{" "}
+            <Label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
+              {item.name}
+            </Label>
+          </InputGrp>
+        ))}
+      </div>
+    </>
   );
 };
 
