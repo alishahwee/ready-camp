@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter, useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import tw from "twin.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +7,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 const Form = tw.form`flex items-center w-full mb-2`;
 const Input = tw.input`container h-12 rounded-md p-4 mr-2 w-60 sm:w-full`;
 
-const SearchBar = () => {
-  const history = useHistory();
-
+const SearchBar = ({ history }) => {
   const [park, setPark] = useState({ id: undefined, name: "" });
   const [parks, setParks] = useState([]);
 
@@ -24,6 +22,7 @@ const SearchBar = () => {
     e.preventDefault();
     if (park.id) {
       history.push(`/park/${park.id}`);
+      history.go();
     }
   };
 

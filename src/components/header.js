@@ -25,7 +25,7 @@ const Header = () => {
         </Link>
         <div tw="flex">
           <button onClick={toggleSearch}>
-            <FontAwesomeIcon icon={faSearch} size="md" tw="mx-2" />
+            <FontAwesomeIcon icon={faSearch} size="lg" tw="mx-2" />
           </button>
           {auth.token ? (
             <div>
@@ -37,11 +37,12 @@ const Header = () => {
           )}
         </div>
       </Wrapper>
-      {showSearch ? (
-        <div tw="absolute max-w-sm bg-lavender-fade pt-2 px-2 rounded-lg right-0 shadow">
-          <SearchBar />
-        </div>
-      ) : null}
+      <div
+        tw="absolute max-w-sm bg-lavender-fade pt-2 px-2 rounded-lg right-0 shadow"
+        css={{ display: showSearch ? "block;" : "none;" }}
+      >
+        <SearchBar />
+      </div>
     </div>
   );
 };
