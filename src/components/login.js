@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Redirect,
-  useHistory,
-  useLocation,
-  Link,
-  withRouter,
-} from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import tw from "twin.macro";
 import { useAuth } from "../hooks/auth";
@@ -21,8 +15,12 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const { from } = location.state || { from: { pathname: "/parks/favorites" } };
 
+  useEffect(() => {
+    if (auth.token)
+      history.replace(from, { message: "You are already logged in." });
+  }, []);
+
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("/auth/login", data)
       .then((res) => {
@@ -39,9 +37,7 @@ const Login = () => {
       });
   };
 
-  return auth.token ? (
-    <Redirect to={(from, { state: { message: "You are already logged in." }})} />
-  ) : (
+  return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormLbl>Log In</FormLbl>
 
@@ -87,4 +83,4 @@ const Login = () => {
   );
 };
 
-export default withRouter(Login);
+export default Login;

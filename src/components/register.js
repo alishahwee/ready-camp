@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { withRouter, useHistory, useLocation } from "react-router-dom";
 import tw from "twin.macro";
 import axios from "axios";
 import { useAuth } from "../hooks/auth";
@@ -13,10 +13,14 @@ const Register = () => {
   const location = useLocation();
 
   const [errorMsg, setErrorMsg] = useState(null);
-  const { from } = location.state || { from: { pathname: "/favorites" } };
+  const { from } = location.state || { from: { pathname: "/parks/favorites" } };
+
+  useEffect(() => {
+    if (auth.token)
+      history.replace(from, { message: "You are already logged in." });
+  }, []);
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("/auth/register", data)
       .then((res) => {
@@ -33,9 +37,7 @@ const Register = () => {
       });
   };
 
-  return auth.token ? (
-    <Redirect to={(from, { state: { message: "You are already logged in." }})} />
-  ) : (
+  return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormLbl>Register</FormLbl>
 
@@ -52,6 +54,7 @@ const Register = () => {
             pattern: /^[a-z0-9_-]{3,15}$/i /* 3-16 chars, may include _ and - */,
           })}
           css={errors.username?.type === "required" && tw`border-red-500`}
+          autoComplete="off"
         />
         {errors.username?.type === "required" && (
           <Error>Your input is required.</Error>
@@ -75,6 +78,7 @@ const Register = () => {
             pattern: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
           })}
           css={errors.username?.type === "required" && tw`border-red-500`}
+          autoComplete="off"
         />
         {errors.email?.type === "required" && (
           <Error>Your input is required.</Error>
@@ -95,6 +99,7 @@ const Register = () => {
             pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/ /* Min 8 chars, 1 upper, 1 lower, 1 num, 1 special */,
           })}
           css={errors.username?.type === "required" && tw`border-red-500`}
+          autoComplete="off"
         />
         {errors.password?.type === "required" && (
           <Error>Your input is required.</Error>
@@ -118,6 +123,7 @@ const Register = () => {
             validate: (value) => value === watch("password"),
           })}
           css={errors.username?.type === "required" && tw`border-red-500`}
+          autoComplete="off"
         />
         {errors.confirmPassword?.type === "required" && (
           <Error>Your input is required.</Error>
