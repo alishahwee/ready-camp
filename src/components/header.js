@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import tw from "twin.macro";
 import { useAuth } from "../hooks/auth";
 import Logo from "./logo";
@@ -9,6 +9,7 @@ const Wrapper = tw.nav`flex justify-between content-center items-center w-screen
 
 const Header = () => {
   const auth = useAuth();
+  const location = useLocation();
 
   return (
     <Wrapper>
@@ -20,7 +21,9 @@ const Header = () => {
           <Faves />
           <LogoutBtn />
         </div>
-      ) : <LoginBtn />}
+      ) : (
+        location.pathname != "/login" && <LoginBtn />
+      )}
     </Wrapper>
   );
 };
