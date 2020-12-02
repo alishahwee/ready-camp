@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <Wrapper>
       <Link to="/">
-        <Logo textSize={tw`text-3xl`} />
+        <Logo textSize={tw`text-2xl md:text-3xl`} />
       </Link>
       {auth.token ? (
         <div>

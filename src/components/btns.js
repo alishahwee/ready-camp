@@ -8,14 +8,14 @@ import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { useAuth } from "../hooks/auth";
 
-const RegBtn = tw.button`bg-yellow-400 hover:bg-yellow-600 text-white font-medium py-1 px-3 rounded`;
+const RegBtn = tw.button`bg-yellow-400 hover:bg-yellow-600 text-white font-medium text-sm md:text-base py-1 px-2 rounded`;
 
 export const Faves = () => (
   <Link to="/parks/favorites">
     <FontAwesomeIcon
-      icon={fasHeart}
+      icon={farHeart}
       size="lg"
-      tw="text-red-400 hover:text-red-500 mx-2"
+      tw="text-lg md:text-xl text-red-400 hover:text-red-500 mx-2"
     />
   </Link>
 );
