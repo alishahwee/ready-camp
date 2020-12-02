@@ -15,9 +15,9 @@ module.exports = {
       },
       colors: {
         "maximum-yellow-red": "#ffcb69",
-        "steal-teal": "#515a47",
+        "dark-lava": "#915f40",
         "lavender-fade": "#f2ece8",
-        "sage": "#cacaaa",
+        "artichoke": "#989C87",
       },
       fontSize: {
         "7xl": "5rem",

@@ -9,7 +9,7 @@ const FaveCard = ({ parkId, name, imgUrl }) => (
     <Card>
       <Link to={`/park/${parkId}`}>
         <img src={imgUrl} tw="mb-4 rounded" />
-        <h2 tw="text-xl text-yellow-800 font-semibold w-full">{name}</h2>
+        <h2 tw="text-xl text-dark-lava font-semibold w-full">{name}</h2>
       </Link>
     </Card>
   </div>

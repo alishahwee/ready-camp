@@ -3,7 +3,7 @@ import "twin.macro";
 
 const Loading = () => (
   <svg
-    tw="animate-spin w-10 text-yellow-400 place-self-center"
+    tw="animate-spin w-10 text-maximum-yellow-red place-self-center"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"

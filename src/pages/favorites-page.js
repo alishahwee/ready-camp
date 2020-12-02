@@ -13,7 +13,7 @@ const FavoritesPage = ({ faves }) => (
     </Helmet>
     <Header />
     <div tw="flex flex-col items-center p-4 pt-20 max-w-screen-lg overflow-hidden">
-      <h1 tw="self-start font-display text-2xl pb-2 mb-4 w-full border-b">
+      <h1 tw="self-start font-display text-2xl pb-2 mb-4 w-full border-b text-dark-lava">
         Your Favorite Parks
       </h1>
       <Wrapper>

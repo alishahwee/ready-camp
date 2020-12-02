@@ -24,9 +24,11 @@ const App = ({ location }) => {
 
   useEffect(() => {
     if (location.state?.message) {
-      toast(location.state.message);
+      toast(location.state.message, {
+        hideProgressBar: true,
+      });
     }
-  }, [location.state?.message])
+  }, [location.state?.message]);
 
   const getFaves = () => {
     axios

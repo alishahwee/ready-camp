@@ -6,9 +6,9 @@ import { useAuth } from "../hooks/auth";
 import { FaveBtn, UnfaveBtn } from "./btns";
 import { LoginMsg } from "./items";
 
-const H1 = tw.h1`text-2xl text-yellow-800 font-semibold mr-2`;
+const H1 = tw.h1`text-2xl text-dark-lava font-semibold mr-2`;
 const P = tw.p`text-lg`;
-const A = tw.a`inline-block align-baseline font-bold text-sm text-yellow-500 hover:text-yellow-800`;
+const A = tw.a`inline-block align-baseline font-bold text-sm text-gray-400 hover:text-gray-600`;
 
 const ParkInfo = ({
   parkId,
@@ -72,7 +72,7 @@ const ParkInfo = ({
   };
 
   return (
-    <div tw="m-2">
+    <div tw="p-2 w-full">
       {auth.token ? null : (
         <Link to="/login">
           <LoginMsg>Log in to favorite this park!</LoginMsg>

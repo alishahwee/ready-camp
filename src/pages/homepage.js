@@ -26,7 +26,7 @@ const Homepage = () => {
       <p css={pStyle}>
         An all-in-one camping planner for Minnesota state parks
       </p>
-      <div tw="p-2 bg-gray-800 bg-opacity-75 rounded-lg max-w-md">
+      <div tw="p-2 bg-artichoke bg-opacity-75 rounded-lg max-w-md">
         <SearchBar />
         {auth.token ? (
           <div tw="flex items-center justify-center justify-between w-full">

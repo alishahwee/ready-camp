@@ -53,7 +53,7 @@ const SearchBar = () => {
         onChange={handleChange}
       />
       <datalist id="parks">{dataOptions}</datalist>
-      <button tw="rounded-full bg-green-400 hover:bg-green-500 w-10 h-10 flex-none">
+      <button tw="rounded-full bg-dark-lava hover:bg-yellow-900 w-10 h-10 flex-none">
         <FontAwesomeIcon tw="text-white" icon={faChevronRight} />
       </button>
     </Form>
