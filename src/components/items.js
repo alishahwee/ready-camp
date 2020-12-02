@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../hooks/auth";
 
-const Wrapper = tw.div`mb-3 p-2 last:mb-0 bg-white rounded`;
+const Wrapper = tw.div`mb-3 py-2 px-3 last:mb-0 bg-white rounded`;
 const H2 = tw.h2`mb-1 text-yellow-800 text-xl font-medium w-full`;
-const H3 = tw.h3`mb-1 w-full`;
-const Label = tw.label`text-gray-700`;
+const H3 = tw.h3`w-full`;
+const Label = tw.label`ml-2 text-sm text-gray-700`;
 const LoginMsg = tw.p`text-green-500 text-xs italic mb-1`;
-const InputGrp = tw.div`w-full sm:w-1/2 lg:w-1/3`;
+const InputGrp = tw.div`mb-1 w-full sm:w-1/2 lg:w-1/3`;
 
 const Items = ({ parkId }) => {
   const auth = useAuth();
@@ -112,15 +112,17 @@ const Items = ({ parkId }) => {
           <LoginMsg>Log in first to save your checkmarks!</LoginMsg>
         </Link>
       )}
-      {Object.keys(categories).map((category) => (
-        <ItemGrp
-          key={`item-group-${category}`}
-          category={category}
-          items={categories[category]}
-          checkedItems={checkedItems}
-          updateUserItemDb={updateUserItemDb}
-        />
-      ))}
+      <div>
+        {Object.keys(categories).map((category) => (
+          <ItemGrp
+            key={`item-group-${category}`}
+            category={category}
+            items={categories[category]}
+            checkedItems={checkedItems}
+            updateUserItemDb={updateUserItemDb}
+          />
+        ))}
+      </div>
     </div>
   );
 };
@@ -140,7 +142,10 @@ const ItemGrp = ({ category, items, checkedItems, updateUserItemDb }) => {
 
   return (
     <Wrapper>
-      <div tw="flex justify-between items-center cursor-pointer" onClick={toggleItems}>
+      <div
+        tw="flex justify-between items-center cursor-pointer"
+        onClick={toggleItems}
+      >
         <H3 key={`category-${category}`}>{category}</H3>
         {showItems ? (
           <FontAwesomeIcon icon={faMinus} />
@@ -149,7 +154,7 @@ const ItemGrp = ({ category, items, checkedItems, updateUserItemDb }) => {
         )}
       </div>
       <div
-        tw="flex flex-wrap w-full"
+        tw="flex flex-wrap w-full mt-2"
         css={{ display: showItems ? "flex;" : "none;" }}
       >
         {items.map((item) => (
@@ -160,7 +165,7 @@ const ItemGrp = ({ category, items, checkedItems, updateUserItemDb }) => {
               key={`checkbox-${item.id}`}
               onChange={updateUserItemDb}
               defaultChecked={checkedItems && shouldCheck(item)}
-            />{" "}
+            />
             <Label htmlFor={`item-${item.id}`} key={`label-${item.id}`}>
               {item.name}
             </Label>
