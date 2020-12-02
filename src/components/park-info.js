@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import tw from "twin.macro";
 import axios from "axios";
 import { useAuth } from "../hooks/auth";
 import { FaveBtn, UnfaveBtn } from "./btns";
+import { LoginMsg } from "./items";
 
 const H1 = tw.h1`text-2xl text-yellow-800 font-semibold mr-2`;
 const P = tw.p`text-lg`;
@@ -71,6 +73,11 @@ const ParkInfo = ({
 
   return (
     <div tw="m-2">
+      {auth.token ? null : (
+        <Link to="/login">
+          <LoginMsg>Log in to favorite this park!</LoginMsg>
+        </Link>
+      )}
       <div tw="flex justify-between mb-2">
         <H1>{name}</H1>
         {auth.token &&
