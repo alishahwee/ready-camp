@@ -10,7 +10,7 @@ const Wrapper = tw.div`mb-3 py-2 px-3 last:mb-0 bg-white rounded`;
 const H2 = tw.h2`mb-1 text-yellow-800 text-xl font-medium w-full`;
 const H3 = tw.h3`w-full`;
 const Label = tw.label`ml-2 text-sm text-gray-700`;
-const LoginMsg = tw.p`text-green-500 text-xs italic mb-1`;
+export const LoginMsg = tw.p`text-green-500 text-xs italic mb-1`;
 const InputGrp = tw.div`mb-1 w-full sm:w-1/2 lg:w-1/3`;
 
 const Items = ({ parkId }) => {
