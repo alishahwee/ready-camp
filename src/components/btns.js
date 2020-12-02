@@ -55,7 +55,7 @@ export const LogoutBtn = () => {
       .then((res) => {
         console.log(res.data.message);
         auth.setToken(null);
-        history.push("/");
+        history.push("/", { message: res.data.message });
       })
       .catch(
         (err) =>

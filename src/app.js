@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "./hooks/auth";
 import Homepage from "./pages/homepage";
@@ -9,16 +9,24 @@ import ParkPage from "./pages/park-page";
 import FavoritesPage from "./pages/favorites-page";
 import PrivateRoute from "./utils/private-route";
 import { GlobalStyles } from "twin.macro";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "fontsource-pattaya";
 import "fontsource-poppins";
 
-const App = () => {
+const App = ({ location }) => {
   const auth = useAuth();
   const [faveParks, setFaveParks] = useState([]);
 
   useEffect(() => {
     if (auth.token) getFaves();
   }, [auth.token]);
+
+  useEffect(() => {
+    if (location.state?.message) {
+      toast(location.state.message);
+    }
+  }, [location.state?.message])
 
   const getFaves = () => {
     axios
@@ -33,10 +41,11 @@ const App = () => {
           err.response.status === 401 &&
           auth.setToken(null) /* Silently log user out. */
       );
-  }
+  };
 
   return (
     <>
+      <ToastContainer />
       <GlobalStyles />
       <Switch>
         <Route exact path="/">
@@ -59,4 +68,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withRouter(App);

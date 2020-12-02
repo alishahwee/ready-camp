@@ -34,7 +34,7 @@ const Register = () => {
   };
 
   return auth.token ? (
-    <Redirect to={(from, { message: "You are already logged in." })} />
+    <Redirect to={(from, { state: { message: "You are already logged in." }})} />
   ) : (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormLbl>Register</FormLbl>
