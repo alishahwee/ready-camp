@@ -8,6 +8,7 @@ import LoginPage from "./pages/login-page";
 import ParkPage from "./pages/park-page";
 import FavoritesPage from "./pages/favorites-page";
 import PrivateRoute from "./utils/private-route";
+import NotFoundPage from "./pages/404";
 import { GlobalStyles } from "twin.macro";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -65,6 +66,7 @@ const App = ({ location }) => {
         <PrivateRoute path="/parks/favorites">
           <FavoritesPage faves={faveParks} />
         </PrivateRoute>
+        <Route path="*" component={NotFoundPage} />
       </Switch>
     </>
   );
