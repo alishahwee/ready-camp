@@ -29,13 +29,16 @@ const Map = ({ initLng, initLat, initZoom }) => {
 
     map.on("load", () => {
       console.log("Map loaded.");
-      const directionControls = document.querySelector(".mapboxgl-ctrl-directions");
+      const directionControls = document.querySelector(
+        ".mapboxgl-ctrl-directions"
+      );
       directionControls.style.minWidth = "225px";
     });
 
     directions.on("route", () => {
       console.log("Route set.");
-      document.querySelector(".directions-control-directions").style.height = "250px";
+      document.querySelector(".directions-control-directions").style.height =
+        "250px";
     });
 
     map.on("move", () => {
@@ -52,7 +55,14 @@ const Map = ({ initLng, initLat, initZoom }) => {
     map.addControl(nav, "top-right");
   }, []);
 
-  return <div ref={(el) => (mapContainer.current = el)} tw="sm:m-4 rounded md:w-full" css={{"height": "400px;"}} />;
+  return (
+    <div
+      tw="relative sm:m-4 md:w-full rounded overflow-hidden z-10"
+      css={{ height: "400px;" }}
+    >
+      <div ref={(el) => (mapContainer.current = el)} tw="absolute inset-0" />
+    </div>
+  );
 };
 
 export default Map;
