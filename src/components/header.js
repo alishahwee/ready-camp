@@ -18,7 +18,7 @@ const Header = () => {
   const toggleSearch = () => setShowSearch(!showSearch);
 
   return (
-    <div tw="fixed z-10">
+    <div tw="fixed z-50">
       <Wrapper>
         <Link to="/">
           <Logo textSize={tw`text-2xl md:text-3xl`} />
