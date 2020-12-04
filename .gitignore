@@ -4,7 +4,6 @@ __pycache__
 .env
 .flaskenv
 parks.json
-state-parks.sql
 camping-gear.csv
 parks.tsv
 node_modules
