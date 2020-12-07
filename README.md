@@ -11,8 +11,8 @@
 - NodeJS and Yarn package manager.
 - Latest version of Python and Pip3.
 - PostgresQL database named "state_parks".
-- A Mapbox API public token.
-- A ClimaCell API key.
+- A [Mapbox API public token](https://account.mapbox.com/auth/signup/).
+- A [ClimaCell API key](https://developer.climacell.co/sign-up).
 
 ## Installation
 
