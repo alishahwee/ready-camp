@@ -1,5 +1,5 @@
 # Ready, Camp! :camping:
-> An all-in-one camping planner lets users efficiently plan camping trips in Minnesota. Simply look up your favorite state park, and start planning.
+> An all-in-one camping planner lets users efficiently plan camping trips in Minnesota. Simply look up your favorite state park and start planning.
 
 ![Lines of code](https://img.shields.io/tokei/lines/github/alishahwee/ready-camp?label=lines%20of%20code)
 ![Repo size](https://img.shields.io/github/repo-size/alishahwee/ready-camp)
@@ -72,7 +72,7 @@ $ python3 tests.py
 
 ### Overview
 
-Ready Camp is a full-stack, mobile-first, single-page app that’s an all-in-one camping planner styled with TailwindCSS. A RESTful Flask API serves web-scraped data from a PostgresQL database via SQLAlchemy. The React frontend consumes the data using AJAX. The entire app lives on a single proxy thanks to Webpack, an asset bundler. Client-side routing was implemented with React-Router with non-existent routes leading to a 404 page.
+Ready, Camp! is an all-in-one camping planner that allows users to plan camping trips for Minnesota State Parks. Each parks page lets users view the current weather and get navigation details via interactive maps. Users will be able to see important parks details such as address, what it is known for (e.g. hiking, bird watching), and a URL that will direct the user to the original DNR park website. A recommended camping checklist on each page helps users organize their packing better. Users with registered accounts can favorite parks and have their checkmarks saved between sessions.
 
 ### Technologies used
 
