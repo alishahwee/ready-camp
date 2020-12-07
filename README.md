@@ -1,3 +1,5 @@
+![Desktop view](screenshots/desktop-homepage.png)
+
 # Ready, Camp! :camping:
 > An all-in-one camping planner lets users efficiently plan camping trips in Minnesota. Simply look up your favorite state park and start planning.
 
