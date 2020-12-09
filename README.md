@@ -6,6 +6,8 @@
 ![Lines of code](https://img.shields.io/tokei/lines/github/alishahwee/ready-camp?label=lines%20of%20code)
 ![Repo size](https://img.shields.io/github/repo-size/alishahwee/ready-camp)
 
+### :movie_camera: [Demo Video](https://youtu.be/j0Zeby7WSCg)
+
 ## Prerequisites
 
 - NodeJS and Yarn package manager.
@@ -82,16 +84,22 @@ Ready, Camp! is an all-in-one camping planner that allows users to plan camping 
 - Flask
 - BeautifulSoup
 - Selenium
-- Mapbox API
-- ClimaCell API
 - Webpack v5
 - Babel
-- Tailwind CSS (twin.macro)
-- CSS-in-JS (Emotion)
+- twin.macro (Babel macro for TailwindCSS)
+- Emotion (CSS-in-JS library)
 - React Router
 - React Helmet
 - React Hook Form
+- React Toastify
 - PyJWT
+- Font Awesome
+- Axios
+
+### 3rd Party APIs
+
+- Mapbox
+- ClimaCell
 
 ### Data
 
@@ -125,6 +133,13 @@ Ready, Camp! is an all-in-one camping planner that allows users to plan camping 
 ### Deployment
 
 Soon! :rocket:
+
+### DevOp Goals
+
+- NGINX deployment
+- Docker and Kubernetes implementation
+- Travis CI/CD
+- Frontend Jest testing
 
 ### Notes
 
