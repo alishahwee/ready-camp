@@ -1,4 +1,4 @@
-![Desktop view](screenshots/desktop-homepage.png)
+![Desktop view](https://res.cloudinary.com/dad8geylz/image/upload/v1607491482/ready-camp/desktop-homepage_wut2i5.png)
 
 # Ready, Camp! :camping:
 > An all-in-one camping planner lets users efficiently plan camping trips in Minnesota. Simply look up your favorite state park and start planning.
@@ -77,6 +77,17 @@ $ python3 tests.py
 ### Overview
 
 Ready, Camp! is an all-in-one camping planner that allows users to plan camping trips for Minnesota State Parks. Each parks page lets users view the current weather and get navigation details via interactive maps. Users will be able to see important parks details such as address, what it is known for (e.g. hiking, bird watching), and a URL that will direct the user to the original DNR park website. A recommended camping checklist on each page helps users organize their packing better. Users with registered accounts can favorite parks and have their checkmarks saved between sessions.
+
+Item Checklist | Weather and Maps
+:-------------:|:----------------:
+![GIF of checklist feature](https://res.cloudinary.com/dad8geylz/image/upload/v1607492256/ready-camp/checklist-feature_dkesqt.gif) | ![GIF of weather and maps feature](https://res.cloudinary.com/dad8geylz/image/upload/v1607492153/ready-camp/weather-maps-feature_frcgnb.gif)
+
+Favorites Page |
+:-------------:|
+![GIF of favorites feature](https://res.cloudinary.com/dad8geylz/image/upload/v1607492441/ready-camp/favorites-feature_phwust.gif)
+
+#### Mobile View
+<img src="https://res.cloudinary.com/dad8geylz/image/upload/v1607491482/ready-camp/mobile-homepage_uqsclm.png" width="300" />
 
 ### Technologies used
 
