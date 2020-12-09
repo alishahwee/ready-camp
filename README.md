@@ -1,16 +1,20 @@
+![Desktop view](https://res.cloudinary.com/dad8geylz/image/upload/v1607491482/ready-camp/desktop-homepage_wut2i5.png)
+
 # Ready, Camp! :camping:
 > An all-in-one camping planner lets users efficiently plan camping trips in Minnesota. Simply look up your favorite state park and start planning.
 
 ![Lines of code](https://img.shields.io/tokei/lines/github/alishahwee/ready-camp?label=lines%20of%20code)
 ![Repo size](https://img.shields.io/github/repo-size/alishahwee/ready-camp)
 
+### :movie_camera: [Demo Video](https://youtu.be/j0Zeby7WSCg)
+
 ## Prerequisites
 
 - NodeJS and Yarn package manager.
 - Latest version of Python and Pip3.
 - PostgresQL database named "state_parks".
-- A Mapbox API public token.
-- A ClimaCell API key.
+- A [Mapbox API public token](https://account.mapbox.com/auth/signup/).
+- A [ClimaCell API key](https://developer.climacell.co/sign-up).
 
 ## Installation
 
@@ -74,22 +78,39 @@ $ python3 tests.py
 
 Ready, Camp! is an all-in-one camping planner that allows users to plan camping trips for Minnesota State Parks. Each parks page lets users view the current weather and get navigation details via interactive maps. Users will be able to see important parks details such as address, what it is known for (e.g. hiking, bird watching), and a URL that will direct the user to the original DNR park website. A recommended camping checklist on each page helps users organize their packing better. Users with registered accounts can favorite parks and have their checkmarks saved between sessions.
 
+Item Checklist | Weather and Maps
+:-------------:|:----------------:
+![GIF of checklist feature](https://res.cloudinary.com/dad8geylz/image/upload/v1607492256/ready-camp/checklist-feature_dkesqt.gif) | ![GIF of weather and maps feature](https://res.cloudinary.com/dad8geylz/image/upload/v1607492153/ready-camp/weather-maps-feature_frcgnb.gif)
+
+Favorites Page |
+:-------------:|
+![GIF of favorites feature](https://res.cloudinary.com/dad8geylz/image/upload/v1607492441/ready-camp/favorites-feature_phwust.gif)
+
+#### Mobile View
+<img src="https://res.cloudinary.com/dad8geylz/image/upload/v1607491482/ready-camp/mobile-homepage_uqsclm.png" width="300" />
+
 ### Technologies used
 
 - React
 - Flask
 - BeautifulSoup
 - Selenium
-- Mapbox API
-- ClimaCell API
 - Webpack v5
 - Babel
-- Tailwind CSS (twin.macro)
-- CSS-in-JS (Emotion)
+- twin.macro (Babel macro for TailwindCSS)
+- Emotion (CSS-in-JS library)
 - React Router
 - React Helmet
 - React Hook Form
+- React Toastify
 - PyJWT
+- Font Awesome
+- Axios
+
+### 3rd Party APIs
+
+- Mapbox
+- ClimaCell
 
 ### Data
 
@@ -123,6 +144,13 @@ Ready, Camp! is an all-in-one camping planner that allows users to plan camping 
 ### Deployment
 
 Soon! :rocket:
+
+### DevOp Goals
+
+- NGINX deployment
+- Docker and Kubernetes implementation
+- Travis CI/CD
+- Frontend Jest testing
 
 ### Notes
 
