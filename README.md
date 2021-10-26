@@ -36,6 +36,7 @@ $ pip3 install -r requirements.txt
 
 Initialize database:
 ```
+$ createdb state_parks
 $ psql state_parks < data/state_parks.sql
 ```
 
