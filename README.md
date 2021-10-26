@@ -55,6 +55,7 @@ MAPBOX_TOKEN=<insert your mapbox token here>
 CLIMACELL_KEY=<insert your climacell key here>
 SECRET_KEY=<insert a generated secret key here>
 ```
+_[How to generate a secret key](https://stackoverflow.com/questions/34902378/where-do-i-get-a-secret-key-for-flask)_
 
 ## Usage
 
